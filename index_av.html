@@ -3,205 +3,1365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Найгірші IT вчителі АІК А плюс</title>
+    <title>А плюс для учнів, Клас Dogo & Teacher Kombat</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ebf5fb; 
+            background-color: #111111; 
             margin: 0;
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background-color 0.3s ease;
+            color: #fff;
         }
 
         h1 {
-            color: #2c3e50;
-            font-size: 32px;
-            margin-bottom: 35px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-size: 42px; 
+            margin-bottom: 25px;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
-        /* КНОПКИ */
-        .tabs-container {
+        /* ГЛОБАЛЬНІ НАД-ВКЛАДКИ САЙТУ */
+        .global-nav {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 950px;
+            margin-bottom: 35px;
+            border-bottom: 2px solid #222;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .global-tab-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 10px;
+            font-size: 16px;
+            font-weight: 800;
+            text-align: center;
+            background-color: #1c1c1c;
+            color: #888;
+            border: 2px solid #333;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .global-tab-btn:hover {
+            color: #fff;
+            border-color: #555;
+            background-color: #252525;
+        }
+        .global-tab-btn.active {
+            color: #fff;
+        }
+        
+        #gtab-teachers.active { background-color: #2ecc71; border-color: #2ecc71; box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
+        #gtab-store.active { background-color: #ff0000; border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); } 
+        #gtab-dogo.active { background-color: #9b59b6; border-color: #9b59b6; box-shadow: 0 0 15px rgba(155, 89, 182, 0.4); }
+
+        .global-section {
+            display: none;
+            width: 100%;
+            max-width: 950px;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .global-section.active {
+            display: flex;
+        }
+
+        /* ДИНАМІЧНИЙ СТИЛЬ ДЛЯ ВЧИТЕЛЬСЬКОЇ ЗОНИ */
+        body.bad-zone h1 { color: #ff0000; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+        body.good-zone h1 { color: #2ecc71; text-shadow: 0 0 15px rgba(46, 204, 113, 0.6); }
+        body.middle-zone h1 { color: #f1c40f; text-shadow: 0 0 15px rgba(241, 196, 15, 0.6); }
+
+        .rating-info-box {
+            max-width: 750px;
+            width: 100%;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            background-color: #161616;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        body.bad-zone .rating-info-box { border: 1px dashed #ff0000; color: #ffcccc; }
+        body.good-zone .rating-info-box { border: 1px dashed #2ecc71; color: #d5f5e3; }
+        body.middle-zone .rating-info-box { border: 1px dashed #f1c40f; color: #fef9e7; }
+        .dogo-info-box { border: 1px dashed #9b59b6; color: #f5eef8; }
+        .kombat-info-box { border: 1px dashed #ff0000; color: #ffcccc; }
+
+        /* УПРАВЛІННЯ ФАЙЛАМИ */
+        .file-control-panel {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .file-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+        .btn-save-file { background-color: #27ae60; color: white; border: none; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2); }
+        .btn-save-file:hover { background-color: #219653; }
+        .btn-load-file { background-color: transparent; color: #3498db; border: 2px solid #3498db; }
+        .btn-load-file:hover { background-color: #3498db; color: white; }
+
+        /* ГОЛОВНІ ВКЛАДКИ ОЦІНОК ВЧИТЕЛІВ */
+        .main-tabs {
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
+
+        .main-tab-btn {
+            flex: 1;
+            min-width: 180px;
+            padding: 15px;
+            font-size: 17px;
+            font-weight: 900;
+            cursor: pointer;
+            background-color: #222;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .btn-good-main { border: 3px solid #2ecc71; color: #2ecc71; }
+        .btn-good-main.active, .btn-good-main:hover { background-color: #2ecc71; color: white; box-shadow: 0 0 15px rgba(46, 204, 113, 0.6); }
+        .btn-middle-main { border: 3px solid #f1c40f; color: #f1c40f; }
+        .btn-middle-main.active, .btn-middle-main:hover { background-color: #f1c40f; color: white; box-shadow: 0 0 15px rgba(241, 196, 15, 0.6); }
+        .btn-bad-main { border: 3px solid #ff0000; color: #ff0000; }
+        .btn-bad-main.active, .btn-bad-main:hover { background-color: #ff0000; color: white; box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+
+        /* ВНУТРІШНІ ВКЛАДКИ ВЧИТЕЛІВ */
+        .teachers-tabs {
+            display: none;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .teachers-tabs.active { display: flex; }
 
         .tab-button {
-            padding: 18px 40px; 
-            font-size: 20px; 
+            padding: 12px 20px; 
+            font-size: 16px; 
             font-weight: 800; 
             cursor: pointer;
-            border: 3px solid #27ae60; 
-            background-color: white;
-            color: #27ae60;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #222;
+            border-radius: 8px;
             transition: all 0.2s ease-in-out;
             text-transform: uppercase; 
+            margin: 4px;
+        }
+
+        .sub-section-title {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 900;
+            margin: 15px 0 5px 0;
             letter-spacing: 1px;
+            color: #888;
         }
 
-        .tab-button.active, .tab-button:hover {
-            background-color: #2ecc71; 
-            color: white;
-            border-color: #2ecc71;
-            transform: scale(1.05); 
-            box-shadow: 0 7px 14px rgba(46, 204, 113, 0.4);
-        }
+        body.good-zone .tab-button { border: 2px solid #2ecc71; color: #2ecc71; }
+        body.good-zone .tab-button.active, body.good-zone .tab-button:hover { background-color: #2ecc71; color: white; transform: scale(1.05); }
+        body.middle-zone .tab-button { border: 2px solid #f1c40f; color: #f1c40f; }
+        body.middle-zone .tab-button.active, body.middle-zone .tab-button:hover { background-color: #f1c40f; color: white; transform: scale(1.05); }
+        body.bad-zone .tab-button { border: 2px solid #ff0000; color: #ff0000; }
+        body.bad-zone .tab-button.active, body.bad-zone .tab-button:hover { background-color: #ff0000; color: white; transform: scale(1.05); }
 
-        /* КОНТЕНТ: Зелений квадрат */
+        /* КОНТЕНТ-КОНТЕЙНЕР ІСТОРІЙ */
         .content-container {
             width: 100%;
-            max-width: 650px;
+            max-width: 750px;
             min-height: 250px;
         }
 
         .tab-content {
             display: none;
-            background-color: #d4efdf; 
-            border: 5px solid #27ae60; 
+            background-color: #1a1a1a; 
             border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            animation: fadeIn 0.4s ease-out;
+        }
+        .tab-content.active { display: block; }
+
+        body.good-zone .tab-content { border: 5px solid #2ecc71; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); color: #2ecc71; }
+        body.middle-zone .tab-content { border: 5px solid #f1c40f; box-shadow: 0 10px 30px rgba(241, 196, 15, 0.3); color: #f1c40f; }
+        body.bad-zone .tab-content { border: 5px solid #ff0000; box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); color: #ff0000; }
+
+        .tab-content h2 { margin-top: 0; font-size: 26px; padding-bottom: 10px; text-transform: uppercase; }
+        body.good-zone .tab-content h2 { border-bottom: 2px solid #2ecc71; text-shadow: 0 0 10px rgba(46, 204, 113, 0.5); }
+        body.middle-zone .tab-content h2 { border-bottom: 2px solid #f1c40f; text-shadow: 0 0 10px rgba(241, 196, 15, 0.5); }
+        body.bad-zone .tab-content h2 { border-bottom: 2px solid #ff0000; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+
+        .tab-content h3 { margin-top: 25px; margin-bottom: 8px; font-size: 19px; text-transform: uppercase; }
+        body.good-zone .tab-content h3 { color: #2ecc71; }
+        body.middle-zone .tab-content h3 { color: #f1c40f; }
+        body.bad-zone .tab-content h3 { color: #ff3333; }
+
+        .tab-content p { font-size: 16px; line-height: 1.6; margin-top: 5px; margin-bottom: 15px; }
+        body.good-zone .tab-content p { color: #d5f5e3; }
+        body.middle-zone .tab-content p { color: #fef9e7; }
+        body.bad-zone .tab-content p { color: #ffcccc; }
+
+        .dev-review-box {
+            background-color: #222;
+            border-left: 5px solid #ff3333;
+            padding: 15px 20px;
+            border-radius: 4px 12px 12px 4px;
+            margin: 20px 0;
+        }
+        .dev-review-title {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 14px;
+            color: #ff3333;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
         }
 
-        .tab-content.active {
-            display: block;
+        .nickname-list { background-color: #222; padding: 15px 20px 15px 40px; border-radius: 10px; border-left: 5px solid #ff0000; margin: 15px 0; }
+        .nickname-list li { font-size: 17px; font-weight: bold; color: #ff3333; margin-bottom: 8px; }
+
+        hr { border: 0; height: 2px; margin: 25px 0; opacity: 0.6; }
+        body.good-zone hr { background: #2ecc71; }
+        body.middle-zone hr { background: #f1c40f; }
+        body.bad-zone hr { background: #ff0000; }
+
+        .petition-box { text-align: center; margin-top: 25px; padding: 20px; background-color: #222; border-radius: 12px; }
+        body.good-zone .petition-box { border: 2px dashed #2ecc71; }
+        body.middle-zone .petition-box { border: 2px dashed #f1c40f; }
+        body.bad-zone .petition-box { border: 2px dashed #ff0000; }
+
+        .petition-title { font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        body.good-zone .petition-title { color: #2ecc71; }
+        body.middle-zone .petition-title { color: #f1c40f; }
+        body.bad-zone .petition-title { color: #ff0000; }
+
+        .counter-text { font-size: 20px; color: #fff; margin-bottom: 15px; }
+        .counter-votes { font-size: 28px; font-weight: bold; color: #ff3333; }
+
+        .petition-textarea { width: 100%; max-width: 90%; height: 80px; background-color: #111; border-radius: 8px; color: #fff; padding: 10px; font-family: inherit; font-size: 15px; resize: none; margin-bottom: 15px; outline: none; }
+        body.good-zone .petition-textarea { border: 2px solid #2ecc71; }
+        body.middle-zone .petition-textarea { border: 2px solid #f1c40f; }
+        body.bad-zone .petition-textarea { border: 2px solid #ff3333; }
+
+        .petition-button { color: white; font-size: 18px; font-weight: bold; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; transition: all 0.2s ease; margin: 5px; }
+        body.good-zone .petition-button { background-color: #2ecc71; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4); }
+        body.good-zone .petition-button:hover { background-color: #27ae60; }
+        body.middle-zone .petition-button { background-color: #f1c40f; box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4); }
+        body.middle-zone .petition-button:hover { background-color: #d4ac0d; }
+        body.bad-zone .petition-button { background-color: #ff0000; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4); }
+        body.bad-zone .petition-button:hover { background-color: #cc0000; }
+
+        .review-submit-button { background-color: #222; box-shadow: none; }
+        body.good-zone .review-submit-button { border: 2px solid #2ecc71; color: #2ecc71; }
+        body.good-zone .review-submit-button:hover { background-color: #2ecc71; color: #fff; }
+        body.middle-zone .review-submit-button { border: 2px solid #f1c40f; color: #f1c40f; }
+        body.middle-zone .review-submit-button:hover { background-color: #f1c40f; color: #fff; }
+        body.bad-zone .review-submit-button { border: 2px solid #ff3333; color: #ff3333; }
+        body.bad-zone .review-submit-button:hover { background-color: #ff3333; color: #fff; }
+
+        .petition-button.disabled { background-color: #555555 !important; color: #aaaaaa !important; border: 2px solid #444444 !important; cursor: not-allowed !important; box-shadow: none !important; }
+
+        .reviews-section { margin-top: 25px; background-color: #151515; padding: 15px; border-radius: 10px; border: 1px solid #333; }
+        .reviews-section h4 { margin: 0 0 15px 0; text-transform: uppercase; font-size: 18px; }
+        body.good-zone .reviews-section h4 { color: #2ecc71; }
+        body.middle-zone .reviews-section h4 { color: #f1c40f; }
+        body.bad-zone .reviews-section h4 { color: #ff3333; }
+
+        .reviews-list { max-height: 200px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 10px; }
+        .review-item { background-color: #222; padding: 10px 15px; border-radius: 6px; }
+        body.good-zone .review-item { border-left: 3px solid #2ecc71; }
+        body.middle-zone .review-item { border-left: 3px solid #f1c40f; }
+        body.bad-zone .review-item { border-left: 3px solid #ff0000; }
+
+        .review-meta { font-size: 12px; color: #888; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .review-text { font-size: 14px; color: #eee; word-break: break-word; }
+
+        /* ================= СТИЛІ ДЛЯ КЛАСУ DOGO: ОЦІНЮВАННЯ ================= */
+        .dogo-teachers-list {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
         }
 
-        .tab-content h2 {
-            margin-top: 0;
-            color: #1e8449;
-            font-size: 26px;
-            border-bottom: 2px solid #27ae60;
-            padding-bottom: 10px;
+        .dogo-teacher-row {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: border-color 0.2s ease;
         }
+        .dogo-teacher-row:hover { border-color: #9b59b6; }
 
-        .tab-content h3 {
-            color: #117a65;
-            margin-top: 25px;
-            margin-bottom: 8px;
-            font-size: 19px;
-        }
+        .teacher-main-info { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .teacher-name-spec { font-size: 18px; font-weight: bold; color: #fff; }
+        .teacher-spec { color: #888; font-size: 14px; font-weight: normal; margin-left: 10px; }
 
-        .tab-content p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #2c3e50;
+        .rating-score-box { display: flex; align-items: center; gap: 15px; }
+        .current-score { font-size: 20px; font-weight: 900; min-width: 50px; text-align: center; }
+        .score-positive { color: #2ecc71; }
+        .score-negative { color: #e74c3c; }
+        .score-neutral { color: #f1c40f; }
+
+        .vote-btn { padding: 8px 18px; font-size: 18px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: transform 0.1s ease; }
+        .vote-btn:active { transform: scale(0.95); }
+        .btn-plus { background-color: #2ecc71; color: white; }
+        .btn-plus:hover { background-color: #27ae60; }
+        .btn-minus { background-color: #e74c3c; color: white; }
+        .btn-minus:hover { background-color: #c0392b; }
+
+        .reason-form-box {
+            display: none;
+            background-color: #111;
+            border-left: 3px solid #9b59b6;
+            padding: 15px;
+            border-radius: 4px 8px 8px 4px;
             margin-top: 5px;
-            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
         }
-
-        /* Стиль для списку кличок */
-        .nickname-list {
-            background-color: #ffffff;
-            padding: 15px 20px 15px 40px;
-            border-radius: 10px;
-            border-left: 5px solid #27ae60; 
-            margin: 15px 0;
+        .reason-form-box.active { display: block; }
+        
+        .form-row-flex {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            align-items: center;
+            flex-wrap: wrap;
         }
-
-        .nickname-list li {
-            font-size: 17px;
+        .form-flex-block { display: flex; flex-direction: column; gap: 5px; }
+        .reason-label { font-size: 14px; font-weight: bold; text-transform: uppercase; }
+        
+        .score-input-number {
+            width: 90px;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+            padding: 8px;
+            font-size: 15px;
             font-weight: bold;
-            color: #0d613c; 
-            margin-bottom: 8px;
+            outline: none;
+            text-align: center;
+        }
+        .score-input-number:focus { border-color: #9b59b6; }
+
+        .reason-textarea {
+            width: 100%; box-sizing: border-box; height: 65px; background-color: #1a1a1a; border: 1px solid #444;
+            border-radius: 6px; color: white; padding: 8px; font-family: inherit; resize: none; margin-bottom: 12px; outline: none;
+        }
+        .reason-textarea:focus { border-color: #9b59b6; }
+        
+        .reason-submit-btn { background-color: #9b59b6; color: white; border: none; padding: 8px 16px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; }
+        .reason-submit-btn:hover { background-color: #8e44ad; }
+        .reason-cancel-btn { background-color: transparent; color: #aaa; border: 1px solid #444; padding: 7px 14px; font-size: 14px; border-radius: 4px; cursor: pointer; margin-left: 10px; }
+        .reason-cancel-btn:hover { color: white; border-color: #666; }
+
+        .reasons-history-title { font-size: 13px; font-weight: bold; color: #666; text-transform: uppercase; margin-top: 5px; border-top: 1px dashed #333; padding-top: 10px; }
+        .reasons-log { display: flex; flex-direction: column; gap: 6px; max-height: 150px; overflow-y: auto; margin-top: 5px; }
+        .reason-log-item { font-size: 13px; background-color: #222; padding: 6px 10px; border-radius: 4px; line-height: 1.4; }
+        .log-type-plus { border-left: 3px solid #2ecc71; }
+        .log-type-minus { border-left: 3px solid #e74c3c; }
+        .log-time { color: #666; font-size: 11px; float: right; }
+
+        /* ================= СТИЛІ ДЛЯ TEACHER KOMBAT ================= */
+        .kombat-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #000;
+            border: 4px solid #b71c1c;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+            margin-top: 15px;
+            font-family: 'Impact', 'Arial Black', sans-serif;
         }
 
-        .nickname-list li:last-child {
-            margin-bottom: 0;
+        .kombat-title {
+            color: #ffcc00;
+            font-size: 38px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px #000, 0 0 10px rgba(255, 204, 0, 0.6);
         }
 
-        hr {
-            border: 0;
-            height: 2px;
-            background: #27ae60;
-            margin: 25px 0;
-            opacity: 0.4;
+        .char-select-screen { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .char-select-title { font-size: 24px; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        .char-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; }
+        
+        .char-card {
+            width: 130px;
+            background-color: #1c1c1c;
+            border: 3px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
+        .char-card:hover { border-color: #ffcc00; transform: scale(1.05); box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); }
+        .char-card.selected-p1 { border-color: #ff0000; background-color: #421212; box-shadow: 0 0 15px #ff0000; }
+        .char-card.selected-p2 { border-color: #0044ff; background-color: #121e42; box-shadow: 0 0 15px #0044ff; }
+        
+        .char-img-preview { width: 90px; height: 110px; background-color: #333; margin: 0 auto 10px auto; border-radius: 4px; object-fit: cover; border: 1px solid #555; }
+        .char-name { font-size: 14px; color: #fff; text-transform: uppercase; }
+
+        .arena {
+            width: 100%;
+            height: 340px;
+            background-color: #222;
+            background-image: linear-gradient(to top, rgba(0,0,0,0.85) 15%, rgba(0,0,0,0.4) 100%), linear-gradient(90deg, #2c3e50 0%, #0f171e 50%, #2c3e50 100%);
+            border: 4px solid #d4af37;
+            position: relative;
+            overflow: hidden;
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 40px #000;
+        }
+
+        .fighter-wrapper { position: absolute; bottom: 15px; width: 130px; display: flex; flex-direction: column; align-items: center; transition: all 0.1s ease; }
+        #p1-wrapper { left: 80px; }
+        #p2-wrapper { right: 80px; transform: scaleX(-1); }
+
+        .fighter-img { width: 110px; height: 150px; object-fit: cover; filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.7)); }
+        .fighter-label-name { background-color: rgba(0,0,0,0.7); color: #fff; padding: 2px 8px; font-size: 12px; text-transform: uppercase; border-radius: 4px; margin-top: 5px; letter-spacing: 1px; transform: scaleX(1); }
+        #p2-wrapper .fighter-label-name { transform: scaleX(-1); }
+
+        .kombat-ui-overlay { position: absolute; top: 15px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .mk-hp-container { width: 42%; height: 22px; background-color: #551a1a; border: 2px solid #fff; box-shadow: 0 0 5px #000; position: relative; }
+        #hp1-container { transform: skewX(-10deg); }
+        #hp2-container { transform: skewX(10deg); }
+        .health-fill { height: 100%; background: linear-gradient(to bottom, #ffea00 0%, #ffaa00 100%); width: 100%; transition: width 0.2s ease; }
+        #p2-health { float: right; }
+
+        .mk-round-indicator { color: #ff0000; font-size: 20px; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
+        .kombat-controls-panel { width: 100%; display: none; justify-content: space-around; flex-wrap: wrap; gap: 15px; background-color: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; }
+        .kombat-btn { background: linear-gradient(to bottom, #b71c1c 0%, #7f0000 100%); color: #fff; border: 2px solid #ffcc00; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 4px; text-transform: uppercase; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 5px rgba(0,0,0,0.5); }
+        .kombat-btn:hover:not(:disabled) { background: #ffcc00; color: #000; border-color: #fff; }
+        .kombat-btn:active:not(:disabled) { transform: scale(0.95); }
+        .kombat-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .fight-action-btn { width: 100%; max-width: 200px; margin-bottom: 5px; }
+
+        #finish-text { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: #ff0000; font-size: 55px; font-weight: bold; text-transform: uppercase; display: none; text-shadow: 4px 4px 0px #000, 0 0 20px rgba(255, 0, 0, 1); text-align: center; width: 100%; }
+        #hit-effect { position: absolute; font-size: 90px; display: none; pointer-events: none; z-index: 10; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
+<body class="good-zone">
 
-    <h1>Найгірші IT вчителі АІК А плюс</h1>
+    <h1>А плюс для учнів</h1>
 
-    <div class="tabs-container">
-        <button class="tab-button active" onclick="openTab(event, 'dmytro')">Пан Дмитро</button>
-        <button class="tab-button" onclick="openTab(event, 'mykyta')">Пан Микита</button>
+    <div class="global-nav">
+        <div id="gtab-teachers" class="global-tab-btn active" onclick="switchGlobalSection('teachers')">Відгуки про вчителів</div>
+        <div id="gtab-store" class="global-tab-btn" onclick="switchGlobalSection('store')">Ігрова зона (Kombat)</div>
+        <div id="gtab-dogo" class="global-tab-btn" onclick="switchGlobalSection('dogo')">Клас Dogo: Оцінювання</div>
     </div>
 
-    <div class="content-container">
+    <div class="file-control-panel">
+        <button class="file-btn btn-save-file" onclick="saveDataToFile()">Зберегти у файл</button>
+        <button class="file-btn btn-load-file" onclick="loadDataFromFile()">Завантажити з файлу</button>
+        <input type="file" id="file-chooser" style="display: none;" onchange="handleFileSelect(event)">
+    </div>
+
+    <div id="section-teachers" class="global-section active">
         
-        <div id="dmytro" class="tab-content active">
-            <h2>Пан Дмитро</h2>
-            
-            <h3>Історія перша: про прізвисько</h3>
-            <p>Один раз на уроці Дмитро дізнався, що ми його називаємо пан коментар, бо він дуже багато ставить коментарі та називає їх відмітка. Коли він дізнався, що ми назвали його паном коментарем, він почав придумувати нам клички. І підійшов до мого однокласника і сказав, що він пан мята. Як на мене, це дуже дурне прізвище.</p>
-            
-            <hr>
-
-            <h3>Історія друга: про додаток Figma</h3>
-            <p>Одного разу у нас був урок з Дмитром. Він прийшов і сказав те, що ми сьогодні будемо працювати в фігмі. Фігма нам дуже не подобається. Ми просили його зробити нам урок, як мы робили це в попередньому семестрі: у нас була презентація, ми просто там підходили до дошки і відповідали на питання. Далі ми його попросили, щоб ми не працювали в фігмі, але він категорично був проти. Із-за цього ми дуже на нього були сильно обурені, і через це ми почали його не дуже любити, недолюблювати. Пізніше мій однокласник зробив пісеньку про фігму. Далі прийшов завуч на урок і насварив нас всіх за цю пісеньку. Як на мене, це дуже несправедливо.</p>
-            
-            <hr>
-
-            <h3>Історія третя: Головна проблема та 5 кличок</h3>
-            <p>Ця історія найбільше розказує про проблему цього вчителя — Дмитро дофіга запізнюється! Що у нього були поважні причини для запізнювання але Бувало і ні, але він дуже часто приходить невчасно. Колись він взагалі настільки сильно запізнився, що прийшов аж на останні 5 хвилин уроку! Але прикол у тому, що навіть тоді, коли він прийшов під самий кінець, він все одно змусив нас працювати в фігмі.</p>
-            
-            <p>Через усе це ми дали йому аж п'ять різних кличок:</p>
-            <ol class="nickname-list">
-                <li>Пан Коментар</li>
-                <li>Пан Відмітка</li>
-                <li>Пан Запізнювання</li>
-                <li>Пан Фігма</li>
-                <li>Пан Два Бала</li>
-            </ol>
-
-            <hr>
-
-            <h3>Історія четверта: Трохи приємного</h3>
-            <p>Але якщо чесно, то з ним бували і смішні моменти. Останні два уроки Дмитро ставиться до нас дуже добре. Звичайно, це не зупиняє нас і не заважає нам трошки його критикувати, але позитивні штуки теж траплялися. Наприклад, на попередньому уроці ми працювали через штучний інтелект — робили проєкт для товару. Там можна було творити все, що захочеш, тому ми вигадували дуже смішні слова і креативили на повну. А на уроці до цього ми взагалі розважалися як могли. Тож у цих спогадах є і крапля приємного, хоча це, звісно, жодним чином не відстороняє і не змінює тих фактів, про які ми розказали в інших історіях.</p>
-
-            <hr>
-
-            <h3>Історія п'ята: Підсумок</h3>
-            <p>Ми рахуємо, що ми не золоті діти, щоб нас вихваляти на повну. Але Дмитро — це вчитель, який замінив іншого викладача, а його предмет замінив дуже крутий предмет. Раніше у нас було 3D-моделювання, і той вчитель нам дуже подобався (чесно, я не пам'ятаю, як його звати). З ним ми робили дуже прикольні штучки в TinkerCAD на 3D-моделі. Але з Дмитром ми робимо, можливо, не саму цікаву роботу. Справа навіть не в тому, що ми взагалі не хочемо вчитися. Наприклад, 3D-моделювання я б реально хотів вивчати, а не цей дизайн інтерфейсів. Плюс абсолютно не факт, що ми будемо в майбутньому робити якісь програми.</p>
+        <div class="rating-info-box">
+            Зверніть увагу: Поточний рейтинг вчителів та їхнє розташування в категоріях повністю залежать від кількості голосів та активності у відгуках учнів!
         </div>
 
-        <div id="mykyta" class="tab-content">
-            <h2>Пан Микита</h2>
-            
-            <h3>Історія перша: Пан Грю та упала атмосфера</h3>
-            <p>Коли він прийшов, наша атмосфера в класі на цьому уроці зразу упала, бо він дуже прискіпливо себе поводив. Та ми його прозвали пан Грю. Можливо, це трошки (ну не трошки, це образливо) але ми з нього сміялись, бо ми поводилися через нього трошечки дурно, та й він поводився дивно.</p>
+        <div class="main-tabs">
+            <div id="main-good-btn" class="main-tab-btn btn-good-main active" onclick="switchMainCategory('good')">Гарні вчителі</div>
+            <div id="main-middle-btn" class="main-tab-btn btn-middle-main" onclick="switchMainCategory('middle')">Середні вчителі</div>
+            <div id="main-bad-btn" class="main-tab-btn btn-bad-main" onclick="switchMainCategory('bad')">Погані вчителі</div>
         </div>
 
+        <div id="good-teachers-nav" class="teachers-tabs active">
+            <button class="tab-button active" onclick="openTeacherTab(event, 'alyona')">Пані Альона</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'tetyana')">Пані Тетяна</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'dariya')">Пані Дарія</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'diana')">Пані Діана</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'artem')">Пан Артем</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'kyrylo')">Пан Кирило</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'yaroslava')">Пані Ярослава</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'kristina')">Пані Крістіна</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'lesya')">Пані Леся</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'olena')">Пані Олена</button>
+            <div class="sub-section-title">ЗАВУЧІ:</div>
+            <button class="tab-button" onclick="openTeacherTab(event, 'oleksandra')">Пані Олександра</button>
+        </div>
+
+        <div id="middle-teachers-nav" class="teachers-tabs">
+            <button class="tab-button" onclick="openTeacherTab(event, 'anna')">Пані Анна</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'oleksandr')">Пан Олександр</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'vladyslav')">Пан Владислав</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'sergiy')">Пан Сергій</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'evelina')">Пані Евеліна</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'volodymyr')">Пан Володимир</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'adelina')">Пані Аделіна</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'natalia')">Пані Наталія</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'yulia')">Пані Юлія</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'maria')">Пані Марія</button>
+        </div>
+
+        <div id="bad-teachers-nav" class="teachers-tabs">
+            <button class="tab-button" onclick="openTeacherTab(event, 'dmytro')">Пан Дмитро</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'mykyta')">Пан Микита</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'lyudmila')">Пані Людмила</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'viktoria')">Пані Вікторія</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'ganna')">Пані Ганна</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'nika')">Пані Ніка</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'inna')">Пані Інна</button>
+            <div class="sub-section-title">ЗАВУЧІ:</div>
+            <button class="tab-button" onclick="openTeacherTab(event, 'oksana')">Пані Оксана</button>
+            <button class="tab-button" onclick="openTeacherTab(event, 'dariya_bad')">Пані Дарія</button>
+        </div>
+
+        <div class="content-container">
+            <div id="alyona" class="tab-content active">
+                <h2>Пані Альона <span style="color: #aaa; font-size: 18px;">[Python]</span></h2>
+                <p>Чудовий викладач! Завжди зрозуміло пояснює матеріал і підтримує учнів у складних моментах.</p>
+                <hr><div class="petition-box"><textarea id="review-alyona" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('alyona')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-alyona" class="reviews-list"></div></div></div>
+            </div>
+            <div id="tetyana" class="tab-content">
+                <h2>Пані Тетяна <span style="color: #aaa; font-size: 18px;">[Англійська мова / Веб]</span></h2>
+                <p>Неймовірно добрий та справедливий вчитель. На її уроках завжди панує затишна атмосфера.</p>
+                <hr><div class="petition-box"><textarea id="review-tetyana" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('tetyana')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-tetyana" class="reviews-list"></div></div></div>
+            </div>
+            <div id="dariya" class="tab-content">
+                <h2>Пані Дарія <span style="color: #aaa; font-size: 18px;">[Українська мова]</span></h2>
+                <p>Прекрасний фахівець, який реально вміє зацікавити своїм предметом. Уроки пролітають непомітно!</p>
+                <hr><div class="petition-box"><textarea id="review-dariya" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('dariya')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-dariya" class="reviews-list"></div></div></div>
+            </div>
+            <div id="diana" class="tab-content">
+                <h2>Пані Діана <span style="color: #aaa; font-size: 18px;">[Дизайн]</span></h2>
+                <p>Дуже приємна викладачка, допомагає розвивати креатив та завжди хвалить за ідеї.</p>
+                <hr><div class="petition-box"><textarea id="review-diana" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('diana')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-diana" class="reviews-list"></div></div></div>
+            </div>
+            <div id="artem" class="tab-content">
+                <h2>Пан Артем <span style="color: #aaa; font-size: 18px;">[Unity / GameDev]</span></h2>
+                <p>Пояснює створення ігор неймовірно круто та з чудовим гумором. Уроки дуже цікаві!</p>
+                <hr><div class="petition-box"><textarea id="review-artem" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('artem')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-artem" class="reviews-list"></div></div></div>
+            </div>
+            <div id="kyrylo" class="tab-content">
+                <h2>Пан Кирило <span style="color: #aaa; font-size: 18px;">[Програмування]</span></h2>
+                <p>Класний і сучасний викладач. Завжди на одній хвилі з учнями, складні теми розбирає «на пальцях».</p>
+                <hr><div class="petition-box"><textarea id="review-kyrylo" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('kyrylo')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-kyrylo" class="reviews-list"></div></div></div>
+            </div>
+            <div id="yaroslava" class="tab-content">
+                <h2>Пані Ярослава <span style="color: #aaa; font-size: 18px;">[Малювання та Арт]</span></h2>
+                <p>Дуже чуйна і творча. Надихає створювати шедеври та не боятися експериментувати з кольорами.</p>
+                <hr><div class="petition-box"><textarea id="review-yaroslava" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('yaroslava')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-yaroslava" class="reviews-list"></div></div></div>
+            </div>
+            <div id="kristina" class="tab-content">
+                <h2>Пані Крістіна <span style="color: #aaa; font-size: 18px;">[Графічний Дизайн]</span></h2>
+                <p>Показує дуже круті тренди в малюванні та ілюстрації, завжди хвалить за креативний підхід учнів!</p>
+                <hr><div class="petition-box"><textarea id="review-kristina" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('kristina')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-kristina" class="reviews-list"></div></div></div>
+            </div>
+            <div id="lesya" class="tab-content">
+                <h2>Пані Леся <span style="color: #aaa; font-size: 18px;">[Українська мова]</span></h2>
+                <p>Завжди з посмішкою пояснює правила, не завалює зайвою рутиною, створює дуже теплу атмосферу.</p>
+                <hr><div class="petition-box"><textarea id="review-lesya" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('lesya')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-lesya" class="reviews-list"></div></div></div>
+            </div>
+            <div id="olena" class="tab-content">
+                <h2>Пані Олена <span style="color: #aaa; font-size: 18px;">[Англійська мова]</span></h2>
+                <p>Прекрасна викладачка, завжди розмовляє з учнями на цікаві теми та ставиться з розумінням.</p>
+                <hr><div class="petition-box"><textarea id="review-olena" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('olena')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-olena" class="reviews-list"></div></div></div>
+            </div>
+            <div id="oleksandra" class="tab-content">
+                <h2>Пані Олександра <span style="color: #aaa; font-size: 18px;">[Завуч]</span></h2>
+                <p>Найкращий завуч школи. Справедлива, завжди готова вислухати проблеми учнів та допомогти у будь-якій ситуації.</p>
+                <hr><div class="petition-box"><textarea id="review-oleksandra" class="petition-textarea" placeholder="Подяка..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('oleksandra')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-oleksandra" class="reviews-list"></div></div></div>
+            </div>
+
+            <div id="anna" class="tab-content">
+                <h2>Пані Анна <span style="color: #aaa; font-size: 18px;">[Математика]</span></h2>
+                <p>Сувора, але справедлива. Якщо виконувати домашні завдання вчасно — проблем ніколи не буде.</p>
+                <hr><div class="petition-box"><textarea id="review-anna" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('anna')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-anna" class="reviews-list"></div></div></div>
+            </div>
+            <div id="oleksandr" class="tab-content">
+                <h2>Пан Олександр <span style="color: #aaa; font-size: 18px;">[Робототехніка]</span></h2>
+                <p>Предмет веде нормально, але іноді дає занадто складні схеми для збирання за короткий час уроку.</p>
+                <hr><div class="petition-box"><textarea id="review-oleksandr" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('oleksandr')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-oleksandr" class="reviews-list"></div></div></div>
+            </div>
+            <div id="vladyslav" class="tab-content">
+                <h2>Пан Владислав <span style="color: #aaa; font-size: 18px;">[Дизайн]</span></h2>
+                <p>Уроки хороші, але інколи занадто прискіпливо і довго перевіряє фінальні макети проектів.</p>
+                <hr><div class="petition-box"><textarea id="review-vladyslav" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('vladyslav')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-vladyslav" class="reviews-list"></div></div></div>
+            </div>
+            <div id="sergiy" class="tab-content">
+                <h2>Пан Сергій <span style="color: #aaa; font-size: 18px;">[Фізика / Комп'ютерні мережі]</span></h2>
+                <p>Розповідає матеріал монотонно, але якщо ставити йому питання — детально пояснить помилки.</p>
+                <hr><div class="petition-box"><textarea id="review-sergiy" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('sergiy')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-sergiy" class="reviews-list"></div></div></div>
+            </div>
+            <div id="evelina" class="tab-content">
+                <h2>Пані Евеліна <span style="color: #aaa; font-size: 18px;">[Чужа мова]</span></h2>
+                <p>Буває веселою, але іноді несподівано робить зауваження на порожньому місці. Настрій часто змінюється.</p>
+                <hr><div class="petition-box"><textarea id="review-evelina" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('evelina')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-evelina" class="reviews-list"></div></div></div>
+            </div>
+            <div id="volodymyr" class="tab-content">
+                <h2>Пан Володимир <span style="color: #aaa; font-size: 18px;">[Адміністрування]</span></h2>
+                <p>Уроки проходять технічно, за регламентом. Без особливого креативу, але й без претензій.</p>
+                <hr><div class="petition-box"><textarea id="review-volodymyr" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('volodymyr')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-volodymyr" class="reviews-list"></div></div></div>
+            </div>
+            <div id="adelina" class="tab-content">
+                <h2>Пані Аделіна <span style="color: #aaa; font-size: 18px;">[3D моделювання]</span></h2>
+                <p>Знає Blender добре, але пояснює занадто швидко, через що учні не встигають за її кліками.</p>
+                <hr><div class="petition-box"><textarea id="review-adelina" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('adelina')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-adelina" class="reviews-list"></div></div></div>
+            </div>
+            <div id="natalia" class="tab-content">
+                <h2>Пані Наталія <span style="color: #aaa; font-size: 18px;">[Географія]</span></h2>
+                <p>Матеріал розповідає цікаво, але ставить забагато контурних карт на самостійне опрацювання.</p>
+                <hr><div class="petition-box"><textarea id="review-natalia" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('natalia')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-natalia" class="reviews-list"></div></div></div>
+            </div>
+            <div id="yulia" class="tab-content">
+                <h2>Пані Юлія <span style="color: #aaa; font-size: 18px;">[Історія]</span></h2>
+                <p>Доброзичлива, але вимагає знати напам'ять занадто багато дат, що іноді важко для всього класу.</p>
+                <hr><div class="petition-box"><textarea id="review-yulia" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('yulia')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-yulia" class="reviews-list"></div></div></div>
+            </div>
+            <div id="maria" class="tab-content">
+                <h2>Пані Марія <span style="color: #aaa; font-size: 18px;">[Біологія]</span></h2>
+                <p>Теми викладає добре, але часто дає складні та неочікувані самостійні роботи на початку занять.</p>
+                <hr><div class="petition-box"><textarea id="review-maria" class="petition-textarea" placeholder="Коментар..."></textarea><br><button class="petition-button review-submit-button" onclick="submitReviewOnly('maria')">Надіслати</button><div class="reviews-section"><h4>Відгуки учнів:</h4><div id="list-maria" class="reviews-list"></div></div></div>
+            </div>
+
+            <div id="dmytro" class="tab-content">
+                <h2>Пан Дмитро <span style="color: #aaa; font-size: 18px;">[Figma та Інтерфейси]</span></h2>
+                <p>Учні прозвали його «Пан Коментар». Постійно чіпляється до пікселів і занижує бали за дрібниці.</p>
+                <div class="dev-review-box"><div class="dev-review-title">Нотатка розробника:</div>Запізнюється на уроки та обожнює писати дурні коментарі. Наша мета — зняти його з посади.</div>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-dmytro" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-dmytro" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-dmytro" class="petition-button" onclick="signPetition('dmytro')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('dmytro')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-dmytro" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="mykyta" class="tab-content">
+                <h2>Пан Микита <span style="color: #aaa; font-size: 18px;">[C++]</span></h2>
+                <p>Пояснює код дуже заплутано. Якщо не розумієш тему, каже «гуглити самостійно».</p>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-mykyta" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-mykyta" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-mykyta" class="petition-button" onclick="signPetition('mykyta')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('mykyta')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-mykyta" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="lyudmila" class="tab-content">
+                <h2>Пані Людмила <span style="color: #aaa; font-size: 18px;">[Алгебра]</span></h2>
+                <p>Кричить на уроках, якщо хтось не встигає швидко записати формулу з дошки.</p>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-lyudmila" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-lyudmila" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-lyudmila" class="petition-button" onclick="signPetition('lyudmila')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('lyudmila')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-lyudmila" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="viktoria" class="tab-content">
+                <h2>Пані Вікторія <span style="color: #aaa; font-size: 18px;">[Хімія]</span></h2>
+                <p>Ставить двійки за те, що забув зошит удома, навіть якщо знаєш тему напам'ять.</p>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-viktoria" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-viktoria" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-viktoria" class="petition-button" onclick="signPetition('viktoria')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('viktoria')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-viktoria" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="ganna" class="tab-content">
+                <h2>Пані Ганна <span style="color: #aaa; font-size: 18px;">[Зарубіжна література]</span></h2>
+                <p>Занадто нудні лекції. Читає з папірця весь урок і сердиться, коли учні засинають.</p>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-ganna" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-ganna" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-ganna" class="petition-button" onclick="signPetition('ganna')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('ganna')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-ganna" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="nika" class="tab-content">
+                <h2>Пані Ніка <span style="color: #aaa; font-size: 18px;">[Конфліктологія]</span></h2>
+                <p>Іронічно, але сама постійно створює конфлікти з учнями через суб'єктивне ставлення.</p>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-nika" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-nika" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-nika" class="petition-button" onclick="signPetition('nika')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('nika')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-nika" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="inna" class="tab-content">
+                <h2>Пані Інна <span style="color: #aaa; font-size: 18px;">[Німецька мова]</span></h2>
+                <p>Змушує переказувати величезні тексти без словника. Дуже прискіплива до вимови.</p>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-inna" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-inna" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-inna" class="petition-button" onclick="signPetition('inna')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('inna')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-inna" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="oksana" class="tab-content">
+                <h2>Пані Оксана <span style="color: #aaa; font-size: 18px;">[Головний завуч]</span></h2>
+                <p>Неймовірно сувора. Очолює «Альянс Завучів» і карає за найменший шум на коридорі під час перерви.</p>
+                <div class="nickname-list">
+                    <div class="dev-review-title" style="margin-left: -20px; margin-bottom: 10px;">Її прізвиська серед учнів:</div>
+                    <ul>
+                        <li>Генератор двійок</li>
+                        <li>Оксана Руйнатор</li>
+                        <li>Кінець Свободи</li>
+                    </ul>
+                </div>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-oksana" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-oksana" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-oksana" class="petition-button" onclick="signPetition('oksana')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('oksana')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-oksana" class="reviews-list"></div></div>
+                </div>
+            </div>
+            <div id="dariya_bad" class="tab-content">
+                <h2>Пані Дарія <span style="color: #aaa; font-size: 18px;">[Завуч по виховному процесу]</span></h2>
+                <p>Має дуже дивні методи виховання, постійно викликає батьків до школи за дрібний яскравий одяг.</p>
+                <div class="petition-box">
+                    <div class="petition-title">Петиція за звільнення</div>
+                    <div class="counter-text">Зібрано підписів: <span id="votes-dariya_bad" class="counter-votes">0</span> / 40</div>
+                    <textarea id="review-dariya_bad" class="petition-textarea" placeholder="Причина підпису..."></textarea>
+                    <br><button id="btn-dariya_bad" class="petition-button" onclick="signPetition('dariya_bad')">Підписати петицію</button>
+                    <button class="petition-button review-submit-button" onclick="submitReviewOnly('dariya_bad')">Просто відгук</button>
+                    <div class="reviews-section"><h4>Лог скарг та відгуків:</h4><div id="list-dariya_bad" class="reviews-list"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-store" class="global-section">
+        <div class="rating-info-box kombat-info-box">
+            TEACHER KOMBAT! ОБЕРІТЬ СВОГО БІЙЦЯ ТА СУПРОТИВНИКА З АЛЬЯНСУ ЗАВУЧІВ!
+        </div>
+
+        <div class="kombat-container">
+            <div class="kombat-title">TEACHER KOMBAT</div>
+
+            <div id="kombat-select-screen" class="char-select-screen">
+                <div class="char-select-title" id="select-screen-instruction">Оберіть вашого бійця (Гравець 1)</div>
+                <div class="char-grid" id="fighters-grid">
+                    </div>
+                <button id="start-fight-btn" class="kombat-btn" style="display: none;" onclick="initiateFight()">Розпочати смертельний бій</button>
+            </div>
+
+            <div id="kombat-arena" class="arena">
+                <div class="kombat-ui-overlay">
+                    <div id="hp1-container" class="mk-hp-container"><div id="p1-health" class="health-fill"></div></div>
+                    <div id="round-text" class="mk-round-indicator">РАУНД 1</div>
+                    <div id="hp2-container" class="mk-hp-container"><div id="p2-health" class="health-fill"></div></div>
+                </div>
+
+                <div id="finish-text">FINISH HIM!</div>
+                <div id="hit-effect">💥</div>
+
+                <div id="p1-wrapper" class="fighter-wrapper">
+                    <img id="p1-img" src="" class="fighter-img" alt="P1">
+                    <div id="p1-name-label" class="fighter-label-name">PLAYER</div>
+                </div>
+
+                <div id="p2-wrapper" class="fighter-wrapper">
+                    <img id="p2-img" src="" class="fighter-img" alt="P2">
+                    <div id="p2-name-label" class="fighter-label-name">OPPONENT</div>
+                </div>
+            </div>
+
+            <div id="kombat-controls" class="kombat-controls-panel">
+                <button class="kombat-btn fight-action-btn" onclick="executePlayerAttack('normal')">Звичайна атака</button>
+                <button class="kombat-btn fight-action-btn" style="border-color: #ff0000;" onclick="executePlayerAttack('special')">СУПЕР-АТАКА</button>
+                <button class="kombat-btn fight-action-btn" style="background: #333; border-color: #aaa;" onclick="resetMatch()">Здатися / Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-dogo" class="global-section">
+        <div class="rating-info-box dogo-info-box">
+            ЕЛЕКТРОННИЙ ЖУРНАЛ ОЦІНЮВАННЯ «КЛАС DOGO». ДОДАВАЙТЕ БАЛИ ТА ПРИЧИНИ ЗМІНИ РЕЙТИНГУ.
+        </div>
+
+        <div class="dogo-teachers-list" id="dogo-list-container">
+            </div>
     </div>
 
     <script>
-        function openTab(evt, teacherId) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
+        // БАЗА ДАНИХ УСІХ ВЧИТЕЛІВ ДЛЯ КЛАСУ DOGO ТА ГРИ
+        const teachersDatabase = [
+            // Гарні
+            { id: "alyona", name: "Пані Альона", spec: "Python", category: "good" },
+            { id: "tetyana", name: "Пані Тетяна", spec: "Англійська мова / Веб", category: "good" },
+            { id: "dariya", name: "Пані Дарія", spec: "Українська мова", category: "good" },
+            { id: "diana", name: "Пані Діана", spec: "Дизайн", category: "good" },
+            { id: "artem", name: "Пан Артем", spec: "Unity / GameDev", category: "good" },
+            { id: "kyrylo", name: "Пан Кирило", spec: "Програмування", category: "good" },
+            { id: "yaroslava", name: "Пані Ярослава", spec: "Малювання та Арт", category: "good" },
+            { id: "kristina", name: "Пані Крістіна", spec: "Графічний Дизайн", category: "good" },
+            { id: "lesya", name: "Пані Леся", spec: "Українська мова", category: "good" },
+            { id: "olena", name: "Пані Олена", spec: "Англійська мова", category: "good" },
+            { id: "oleksandra", name: "Пані Олександра", spec: "Завуч", category: "good" },
+            // Середні
+            { id: "anna", name: "Пані Анна", spec: "Математика", category: "middle" },
+            { id: "oleksandr", name: "Пан Олександр", spec: "Робототехніка", category: "middle" },
+            { id: "vladyslav", name: "Пан Владислав", spec: "Дизайн", category: "middle" },
+            { id: "sergiy", name: "Пан Сергій", spec: "Фізика / Мережі", category: "middle" },
+            { id: "evelina", name: "Пані Евеліна", spec: "Чужа мова", category: "middle" },
+            { id: "volodymyr", name: "Пан Володимир", spec: "Адміністрування", category: "middle" },
+            { id: "adelina", name: "Пані Аделіна", spec: "3D моделювання", category: "middle" },
+            { id: "natalia", name: "Пані Наталія", spec: "Географія", category: "middle" },
+            { id: "yulia", name: "Пані Юлія", spec: "Історія", category: "middle" },
+            { id: "maria", name: "Пані Марія", spec: "Біологія", category: "middle" },
+            // Погані
+            { id: "dmytro", name: "Пан Дмитро", spec: "Figma та Інтерфейси", category: "bad" },
+            { id: "mykyta", name: "Пан Микита", spec: "C++", category: "bad" },
+            { id: "lyudmila", name: "Пані Людмила", spec: "Алгебра", category: "bad" },
+            { id: "viktoria", name: "Пані Вікторія", spec: "Хімія", category: "bad" },
+            { id: "ganna", name: "Пані Ганна", spec: "Зарубіжна література", category: "bad" },
+            { id: "nika", name: "Пані Ніка", spec: "Конфліктологія", category: "bad" },
+            { id: "inna", name: "Пані Інна", spec: "Німецька мова", category: "bad" },
+            { id: "oksana", name: "Пані Оксана", spec: "Головний завуч", category: "bad" },
+            { id: "dariya_bad", name: "Пані Дарія", spec: "Завуч по виховному процесу", category: "bad" }
+        ];
+
+        // ГЛОБАЛЬНИЙ СТАН (ПЕРЕЗАПИСУЄТЬСЯ ПРИ ЗАВАНТАЖЕННІ ФАЙЛУ)
+        let appState = {
+            petitions: {},   // Кількість підписів петицій
+            signedUsers: {},  // Хто вже підписав
+            reviews: {},     // Масиви текстових відгуків
+            dogoScores: {},   // Бали Класу Dogo
+            dogoLogs: {}      // Історія логів Dogo
+        };
+
+        // Заглушки зображень для бійців
+        const p1Placeholder = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='150' viewBox='0 0 100 150'><rect width='100' height='150' fill='%232ecc71'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='sans-serif'>ВЧИТЕЛЬ</text></svg>";
+        const p2Placeholder = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='150' viewBox='0 0 100 150'><rect width='100' height='150' fill='%23e74c3c'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='sans-serif'>ЗАВУЧ</text></svg>";
+
+        // Ініціалізація стану за замовчуванням
+        teachersDatabase.forEach(t => {
+            appState.petitions[t.id] = 0;
+            appState.signedUsers[t.id] = false;
+            appState.reviews[t.id] = [];
+            appState.dogoScores[t.id] = 0;
+            appState.dogoLogs[t.id] = [];
+        });
+
+        window.onload = function() {
+            renderDogoList();
+            renderFightersGrid();
+            updateAllUI();
+        };
+
+        // НАВІГАЦІЯ: ГЛОБАЛЬНІ РОЗДІЛИ
+        function switchGlobalSection(sectionId) {
+            document.querySelectorAll('.global-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.global-section').forEach(s => s.classList.remove('active'));
+            
+            if(sectionId === 'teachers') {
+                document.getElementById('gtab-teachers').classList.add('active');
+                document.getElementById('section-teachers').classList.add('active');
+                // Повертаємо фон поточної активної категорії вчителів
+                const activeMainBtn = document.querySelector('.main-tab-btn.active');
+                if (activeMainBtn) {
+                    if (activeMainBtn.id.includes('good')) document.body.className = "good-zone";
+                    if (activeMainBtn.id.includes('middle')) document.body.className = "middle-zone";
+                    if (activeMainBtn.id.includes('bad')) document.body.className = "bad-zone";
+                }
+            } else if(sectionId === 'store') {
+                document.getElementById('gtab-store').classList.add('active');
+                document.getElementById('section-store').classList.add('active');
+                document.body.className = "bad-zone"; // Для Mortal Kombat підходить червоно-чорна зона
+            } else if(sectionId === 'dogo') {
+                document.getElementById('gtab-dogo').classList.add('active');
+                document.getElementById('section-dogo').classList.add('active');
+                document.body.className = "middle-zone"; // Фіолетова/нейтральна тема для Dogo журналу
             }
-            tablinks = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
+        }
+
+        // НАВІГАЦІЯ: КАТЕГОРІЇ ВЧИТЕЛІВ (ГАРНІ / СЕРЕДНІ / ПОГАНІ)
+        function switchMainCategory(cat) {
+            document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.teachers-tabs').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            if (cat === 'good') {
+                document.body.className = "good-zone";
+                document.getElementById('main-good-btn').classList.add('active');
+                document.getElementById('good-teachers-nav').classList.add('active');
+                // Робимо активним першого вчителя в категорії
+                document.getElementById('alyona').classList.add('active');
+                setActiveSubTab('good-teachers-nav', 0);
+            } else if (cat === 'middle') {
+                document.body.className = "middle-zone";
+                document.getElementById('main-middle-btn').classList.add('active');
+                document.getElementById('middle-teachers-nav').classList.add('active');
+                document.getElementById('anna').classList.add('active');
+                setActiveSubTab('middle-teachers-nav', 0);
+            } else if (cat === 'bad') {
+                document.body.className = "bad-zone";
+                document.getElementById('main-bad-btn').classList.add('active');
+                document.getElementById('bad-teachers-nav').classList.add('active');
+                document.getElementById('dmytro').classList.add('active');
+                setActiveSubTab('bad-teachers-nav', 0);
             }
-            document.getElementById(teacherId).classList.add("active");
-            evt.currentTarget.classList.add("active");
+        }
+
+        function setActiveSubTab(navId, index) {
+            const buttons = document.getElementById(navId).querySelectorAll('.tab-button');
+            buttons.forEach(b => b.classList.remove('active'));
+            if(buttons[index]) buttons[index].classList.add('active');
+        }
+
+        function openTeacherTab(event, teacherId) {
+            // Зняти активність з усіх сусідніх кнопок навігації
+            const parent = event.currentTarget.parentElement;
+            parent.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Приховати весь старий контент та показати вибраний
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(teacherId).classList.add('active');
+        }
+
+        // ВІДГУКИ ТА СКАРГИ
+        function submitReviewOnly(teacherId) {
+            const textarea = document.getElementById(`review-${teacherId}`);
+            if(!textarea || !textarea.value.trim()) return;
+
+            const reviewText = textarea.value.trim();
+            const timestamp = new Date().toLocaleString('uk-UA');
+
+            appState.reviews[teacherId].unshift({ text: reviewText, time: timestamp });
+            textarea.value = "";
+            updateReviewsUI(teacherId);
+        }
+
+        function signPetition(teacherId) {
+            if(appState.signedUsers[teacherId]) return;
+
+            const textarea = document.getElementById(`review-${teacherId}`);
+            const reason = textarea ? textarea.value.trim() : "";
+            const timestamp = new Date().toLocaleString('uk-UA');
+
+            appState.petitions[teacherId] += 1;
+            appState.signedUsers[teacherId] = true;
+
+            const signComment = `🚨 ПІДПИСАНО ПЕТИЦІЮ. ` + (reason ? `Причина: ${reason}` : `Без коментаря.`);
+            appState.reviews[teacherId].unshift({ text: signComment, time: timestamp });
+
+            if(textarea) textarea.value = "";
+            
+            updatePetitionUI(teacherId);
+            updateReviewsUI(teacherId);
+        }
+
+        // ОНОВЛЕННЯ ІНТЕРФЕЙСУ СКАРГ ТА ПЕТИЦІЙ
+        function updateAllUI() {
+            teachersDatabase.forEach(t => {
+                updatePetitionUI(t.id);
+                updateReviewsUI(t.id);
+                updateDogoRowScore(t.id);
+                updateDogoLogsUI(t.id);
+            });
+        }
+
+        function updatePetitionUI(id) {
+            const countSpan = document.getElementById(`votes-${id}`);
+            const btn = document.getElementById(`btn-${id}`);
+            if(countSpan) countSpan.innerText = appState.petitions[id];
+            
+            if(btn && appState.signedUsers[id]) {
+                btn.innerText = "Вже підписано";
+                btn.classList.add('disabled');
+                btn.disabled = true;
+            }
+        }
+
+        function updateReviewsUI(id) {
+            const container = document.getElementById(`list-${id}`);
+            if(!container) return;
+            container.innerHTML = "";
+
+            if(appState.reviews[id].length === 0) {
+                container.innerHTML = `<div style="color: #666; font-size: 13px; text-align: center; padding: 10px;">Немає відгуків. Будьте першим!</div>`;
+                return;
+            }
+
+            appState.reviews[id].forEach(rev => {
+                const div = document.createElement('div');
+                div.className = "review-item";
+                div.innerHTML = `
+                    <div class="review-meta"><span>Учень</span><span>${rev.time}</span></div>
+                    <div class="review-text">${rev.text}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // ==========================================
+        // ЛОГІКА КЛАСУ DOGO ОЦІНЮВАННЯ
+        // ==========================================
+        function renderDogoList() {
+            const container = document.getElementById('dogo-list-container');
+            container.innerHTML = "";
+
+            teachersDatabase.forEach(t => {
+                const row = document.createElement('div');
+                row.className = "dogo-teacher-row";
+                row.id = `dogo-row-${t.id}`;
+                row.innerHTML = `
+                    <div class="teacher-main-info">
+                        <div class="teacher-name-spec">
+                            ${t.name} <span class="teacher-spec">[${t.spec}]</span>
+                        </div>
+                        <div class="rating-score-box">
+                            <button class="vote-btn btn-plus" onclick="showDogoForm('${t.id}', 'plus')">+</button>
+                            <span id="dogo-score-${t.id}" class="current-score score-neutral">0</span>
+                            <button class="vote-btn btn-minus" onclick="showDogoForm('${t.id}', 'minus')">-</button>
+                        </div>
+                    </div>
+
+                    <div id="dogo-form-${t.id}" class="reason-form-box">
+                        <div class="form-row-flex">
+                            <div class="form-flex-block">
+                                <span class="reason-label" id="form-label-type-${t.id}">Додати бали:</span>
+                                <input type="number" id="form-num-${t.id}" class="score-input-number" min="1" max="100" value="1">
+                            </div>
+                        </div>
+                        <textarea id="form-text-${t.id}" class="reason-textarea" placeholder="Вкажіть вагому причину для журналу Класу Dogo..."></textarea>
+                        <br>
+                        <button class="reason-submit-btn" onclick="submitDogoAction('${t.id}')">Підтвердити в журнал</button>
+                        <button class="reason-cancel-btn" onclick="hideDogoForm('${t.id}')">Скасувати</button>
+                    </div>
+
+                    <div class="reasons-history-title">Історія змін рейтингу в журналу DOGO:</div>
+                    <div id="dogo-log-list-${t.id}" class="reasons-log"></div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        let currentDogoType = {}; // Фіксація вибраної дії плюс або мінус для вчителя
+
+        function showDogoForm(id, type) {
+            currentDogoType[id] = type;
+            document.getElementById(`dogo-form-${id}`).classList.add('active');
+            const label = document.getElementById(`form-label-type-${id}`);
+            label.innerText = type === 'plus' ? "Додати бали (+):" : "Зняти бали (-):";
+        }
+
+        function hideDogoForm(id) {
+            document.getElementById(`dogo-form-${id}`).classList.remove('active');
+            document.getElementById(`form-text-${id}`).value = "";
+            document.getElementById(`form-num-${id}`).value = "1";
+        }
+
+        function submitDogoAction(id) {
+            const numInput = document.getElementById(`form-num-${id}`);
+            const textInput = document.getElementById(`form-text-${id}`);
+            let points = parseInt(numInput.value) || 1;
+            const reason = textInput.value.trim() || "Без конкретної причини (вибір учнів)";
+            const type = currentDogoType[id] || 'plus';
+            const timestamp = new Date().toLocaleTimeString('uk-UA') + " " + new Date().toLocaleDateString('uk-UA');
+
+            if(type === 'minus') {
+                points = -points;
+            }
+
+            appState.dogoScores[id] += points;
+            appState.dogoLogs[id].unshift({
+                type: type,
+                amount: Math.abs(points),
+                reason: reason,
+                time: timestamp
+            });
+
+            hideDogoForm(id);
+            updateDogoRowScore(id);
+            updateDogoLogsUI(id);
+        }
+
+        function updateDogoRowScore(id) {
+            const scoreSpan = document.getElementById(`dogo-score-${id}`);
+            if(!scoreSpan) return;
+            const score = appState.dogoScores[id];
+            scoreSpan.innerText = (score > 0 ? "+" : "") + score;
+
+            scoreSpan.className = "current-score";
+            if (score > 0) scoreSpan.classList.add('score-positive');
+            else if (score < 0) scoreSpan.classList.add('score-negative');
+            else scoreSpan.classList.add('score-neutral');
+        }
+
+        function updateDogoLogsUI(id) {
+            const container = document.getElementById(`dogo-log-list-${id}`);
+            if(!container) return;
+            container.innerHTML = "";
+
+            if(appState.dogoLogs[id].length === 0) {
+                container.innerHTML = `<div style="color:#555; font-size:12px; padding:3px 0;">Журнал порожній.</div>`;
+                return;
+            }
+
+            appState.dogoLogs[id].forEach(item => {
+                const logDiv = document.createElement('div');
+                logDiv.className = `reason-log-item ${item.type === 'plus' ? 'log-type-plus' : 'log-type-minus'}`;
+                logDiv.innerHTML = `
+                    <span class="log-time">${item.time}</span>
+                    <strong>${item.type === 'plus' ? '+' : '-'}${item.amount} балів</strong> — ${item.reason}
+                `;
+                container.appendChild(logDiv);
+            });
+        }
+
+        // ==========================================
+        // ЛОГІКА ІГРОВОЇ ЗОНИ: TEACHER KOMBAT
+        // ==========================================
+        let fighterP1 = null;
+        let fighterP2 = null;
+        let hp1 = 100;
+        let hp2 = 100;
+        let combatActive = false;
+
+        function renderFightersGrid() {
+            const grid = document.getElementById('fighters-grid');
+            grid.innerHTML = "";
+
+            // Фільтруємо хороших вчителів як потенційних бійців Гравця 1
+            const goodTeachers = teachersDatabase.filter(t => t.category === 'good');
+            
+            goodTeachers.forEach(t => {
+                const card = document.createElement('div');
+                card.className = "char-card";
+                card.id = `char-card-${t.id}`;
+                card.onclick = () => selectFighter(t.id);
+                card.innerHTML = `
+                    <img src="${p1Placeholder}" class="char-img-preview" alt="">
+                    <div class="char-name">${t.name}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectFighter(id) {
+            if(combatActive) return;
+
+            document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected-p1', 'selected-p2'));
+            fighterP1 = teachersDatabase.find(t => t.id === id);
+            
+            document.getElementById(`char-card-${id}`).classList.add('selected-p1');
+
+            // Автоматичний вибір боса з Альянсу Поганих Завучів для ШІ (наприклад, Пані Оксана)
+            fighterP2 = teachersDatabase.find(t => t.id === 'oksana') || teachersDatabase.find(t => t.category === 'bad');
+
+            document.getElementById('select-screen-instruction').innerText = `Обрано: ${fighterP1.name}. Опонент готовий до бою!`;
+            document.getElementById('start-fight-btn').style.display = "block";
+        }
+
+        function initiateFight() {
+            if(!fighterP1 || !fighterP2) return;
+
+            document.getElementById('kombat-select-screen').style.display = "none";
+            document.getElementById('kombat-arena').style.display = "flex";
+            document.getElementById('kombat-controls').style.display = "flex";
+
+            document.getElementById('p1-name-label').innerText = fighterP1.name;
+            document.getElementById('p2-name-label').innerText = fighterP2.name;
+            document.getElementById('p1-img').src = p1Placeholder;
+            document.getElementById('p2-img').src = p2Placeholder;
+
+            hp1 = 100;
+            hp2 = 100;
+            combatActive = true;
+            updateHpBars();
+            
+            document.getElementById('finish-text').style.display = "none";
+            document.getElementById('round-text').innerText = "РАУНД 1";
+            document.querySelectorAll('.fight-action-btn').forEach(b => b.disabled = false);
+        }
+
+        function executePlayerAttack(type) {
+            if(!combatActive) return;
+
+            // Хід гравця
+            let dmgToAi = type === 'special' ? Math.floor(Math.random() * 20) + 15 : Math.floor(Math.random() * 12) + 6;
+            hp2 -= dmgToAi;
+            if(hp2 < 0) hp2 = 0;
+
+            showHitEffect(true, type === 'special' ? "💥 СУПЕР!" : "👊 УДАР!");
+            animateFighterAttack('p1-wrapper');
+            updateHpBars();
+
+            if(hp2 <= 0) {
+                endCombat(fighterP1.name + " ПЕРЕМІГ!");
+                return;
+            }
+
+            // Хід комп'ютера (Завуча) у відповідь з невеликою затримкою
+            document.querySelectorAll('.fight-action-btn').forEach(b => b.disabled = true);
+            setTimeout(() => {
+                if(!combatActive) return;
+                
+                let dmgToPlayer = Math.floor(Math.random() * 13) + 5;
+                hp1 -= dmgToPlayer;
+                if(hp1 < 0) hp1 = 0;
+
+                showHitEffect(false, "📝 ЗАУВАЖЕННЯ!");
+                animateFighterAttack('p2-wrapper');
+                updateHpBars();
+
+                if(hp1 <= 0) {
+                    endCombat(fighterP2.name + " ПЕРЕМІГ!");
+                } else {
+                    document.querySelectorAll('.fight-action-btn').forEach(b => b.disabled = false);
+                }
+            }, 600);
+        }
+
+        function animateFighterAttack(wrapperId) {
+            const wrapper = document.getElementById(wrapperId);
+            if(!wrapper) return;
+            wrapper.style.transform = wrapperId === 'p1-wrapper' ? 'translateX(40px)' : 'scaleX(-1) translateX(40px)';
+            setTimeout(() => {
+                wrapper.style.transform = wrapperId === 'p1-wrapper' ? 'translateX(0)' : 'scaleX(-1) translateX(0)';
+            }, 100);
+        }
+
+        function showHitEffect(isTargetAi, text) {
+            const effect = document.getElementById('hit-effect');
+            effect.innerText = text;
+            effect.style.display = "block";
+            effect.style.left = isTargetAi ? "70%" : "25%";
+            effect.style.top = "50%";
+            setTimeout(() => { effect.style.display = "none"; }, 400);
+        }
+
+        function updateHpBars() {
+            document.getElementById('p1-health').style.width = hp1 + "%";
+            document.getElementById('p2-health').style.width = hp2 + "%";
+        }
+
+        function endCombat(victoryMessage) {
+            combatActive = false;
+            document.querySelectorAll('.fight-action-btn').forEach(b => b.disabled = true);
+            const finishText = document.getElementById('finish-text');
+            finishText.innerText = victoryMessage;
+            finishText.style.display = "block";
+        }
+
+        function resetMatch() {
+            combatActive = false;
+            document.getElementById('kombat-arena').style.display = "none";
+            document.getElementById('kombat-controls').style.display = "none";
+            document.getElementById('kombat-select-screen').style.display = "flex";
+            document.getElementById('select-screen-instruction').innerText = "Оберіть вашого бійця (Гравець 1)";
+            document.getElementById('start-fight-btn').style.display = "none";
+            document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected-p1', 'selected-p2'));
+            fighterP1 = null;
+            fighterP2 = null;
+        }
+
+        // ==========================================
+        // ЗБЕРЕЖЕННЯ ТА ЗАВАНТАЖЕННЯ ДАНИХ (JSON)
+        // ==========================================
+        function saveDataToFile() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "A_Plus_School_Data.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function loadDataFromFile() {
+            document.getElementById('file-chooser').click();
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsedData = JSON.parse(e.target.result);
+                    
+                    // Перевірка надійності структури завантаженого файлу
+                    if (parsedData.petitions && parsedData.reviews && parsedData.dogoScores) {
+                        appState = parsedData;
+                        
+                        // Повне оновлення інтерфейсу під завантажені дані
+                        updateAllUI();
+                        alert("Дані успішно завантажено в систему порталу!");
+                    } else {
+                        alert("Помилка: Файл має некоректну структуру даних.");
+                    }
+                } catch (err) {
+                    alert("Не вдалося прочитати файл. Перевірте, чи це правильний JSON формат.");
+                }
+            };
+            reader.readAsText(file);
         }
     </script>
-
 </body>
 </html>
