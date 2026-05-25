@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Найгірші IT вчителі АІК А плюс</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ebf5fb; 
+            margin: 0;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 35px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* КНОПКИ */
+        .tabs-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tab-button {
+            padding: 18px 40px; 
+            font-size: 20px; 
+            font-weight: 800; 
+            cursor: pointer;
+            border: 3px solid #27ae60; 
+            background-color: white;
+            color: #27ae60;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+
+        .tab-button.active, .tab-button:hover {
+            background-color: #2ecc71; 
+            color: white;
+            border-color: #2ecc71;
+            transform: scale(1.05); 
+            box-shadow: 0 7px 14px rgba(46, 204, 113, 0.4);
+        }
+
+        /* КОНТЕНТ: Зелений квадрат */
+        .content-container {
+            width: 100%;
+            max-width: 650px;
+            min-height: 250px;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: #d4efdf; 
+            border: 5px solid #27ae60; 
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h2 {
+            margin-top: 0;
+            color: #1e8449;
+            font-size: 26px;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 10px;
+        }
+
+        .tab-content h3 {
+            color: #117a65;
+            margin-top: 25px;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .tab-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2c3e50;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Стиль для списку кличок */
+        .nickname-list {
+            background-color: #ffffff;
+            padding: 15px 20px 15px 40px;
+            border-radius: 10px;
+            border-left: 5px solid #27ae60; 
+            margin: 15px 0;
+        }
+
+        .nickname-list li {
+            font-size: 17px;
+            font-weight: bold;
+            color: #0d613c; 
+            margin-bottom: 8px;
+        }
+
+        .nickname-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: #27ae60;
+            margin: 25px 0;
+            opacity: 0.4;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Найгірші IT вчителі АІК А плюс</h1>
+
+    <div class="tabs-container">
+        <button class="tab-button active" onclick="openTab(event, 'dmytro')">Пан Дмитро</button>
+        <button class="tab-button" onclick="openTab(event, 'mykyta')">Пан Микита</button>
+    </div>
+
+    <div class="content-container">
+        
+        <div id="dmytro" class="tab-content active">
+            <h2>Пан Дмитро</h2>
+            
+            <h3>Історія перша: про прізвисько</h3>
+            <p>Один раз на уроці Дмитро дізнався, що ми його називаємо пан коментар, бо він дуже багато ставить коментарі та називає їх відмітка. Коли він дізнався, що ми назвали його паном коментарем, він почав придумувати нам клички. І підійшов до мого однокласника і сказав, що він пан мята. Як на мене, це дуже дурне прізвище.</p>
+            
+            <hr>
+
+            <h3>Історія друга: про додаток Figma</h3>
+            <p>Одного разу у нас був урок з Дмитром. Він прийшов і сказав те, що ми сьогодні будемо працювати в фігмі. Фігма нам дуже не подобається. Ми просили його зробити нам урок, як мы робили це в попередньому семестрі: у нас була презентація, ми просто там підходили до дошки і відповідали на питання. Далі ми його попросили, щоб ми не працювали в фігмі, але він категорично був проти. Із-за цього ми дуже на нього були сильно обурені, і через це ми почали його не дуже любити, недолюблювати. Пізніше мій однокласник зробив пісеньку про фігму. Далі прийшов завуч на урок і насварив нас всіх за цю пісеньку. Як на мене, це дуже несправедливо.</p>
+            
+            <hr>
+
+            <h3>Історія третя: Головна проблема та 5 кличок</h3>
+            <p>Ця історія найбільше розказує про проблему цього вчителя — Дмитро дофіга запізнюється! Що у нього були поважні причини для запізнювання але Бувало і ні, але він дуже часто приходить невчасно. Колись він взагалі настільки сильно запізнився, що прийшов аж на останні 5 хвилин уроку! Але прикол у тому, що навіть тоді, коли він прийшов під самий кінець, він все одно змусив нас працювати в фігмі.</p>
+            
+            <p>Через усе це ми дали йому аж п'ять різних кличок:</p>
+            <ol class="nickname-list">
+                <li>Пан Коментар</li>
+                <li>Пан Відмітка</li>
+                <li>Пан Запізнювання</li>
+                <li>Пан Фігма</li>
+                <li>Пан Два Бала</li>
+            </ol>
+
+            <hr>
+
+            <h3>Історія четверта: Трохи приємного</h3>
+            <p>Але якщо чесно, то з ним бували і смішні моменти. Останні два уроки Дмитро ставиться до нас дуже добре. Звичайно, це не зупиняє нас і не заважає нам трошки його критикувати, але позитивні штуки теж траплялися. Наприклад, на попередньому уроці ми працювали через штучний інтелект — робили проєкт для товару. Там можна було творити все, що захочеш, тому ми вигадували дуже смішні слова і креативили на повну. А на уроці до цього ми взагалі розважалися як могли. Тож у цих спогадах є і крапля приємного, хоча це, звісно, жодним чином не відстороняє і не змінює тих фактів, про які ми розказали в інших історіях.</p>
+
+            <hr>
+
+            <h3>Історія п'ята: Підсумок</h3>
+            <p>Ми рахуємо, що ми не золоті діти, щоб нас вихваляти на повну. Але Дмитро — це вчитель, який замінив іншого викладача, а його предмет замінив дуже крутий предмет. Раніше у нас було 3D-моделювання, і той вчитель нам дуже подобався (чесно, я не пам'ятаю, як його звати). З ним ми робили дуже прикольні штучки в TinkerCAD на 3D-моделі. Але з Дмитром ми робимо, можливо, не саму цікаву роботу. Справа навіть не в тому, що ми взагалі не хочемо вчитися. Наприклад, 3D-моделювання я б реально хотів вивчати, а не цей дизайн інтерфейсів. Плюс абсолютно не факт, що ми будемо в майбутньому робити якісь програми.</p>
+        </div>
+
+        <div id="mykyta" class="tab-content">
+            <h2>Пан Микита</h2>
+            
+            <h3>Історія перша: Пан Грю та упала атмосфера</h3>
+            <p>Коли він прийшов, наша атмосфера в класі на цьому уроці зразу упала, бо він дуже прискіпливо себе поводив. Та ми його прозвали пан Грю. Можливо, це трошки (ну не трошки, це образливо) але ми з нього сміялись, бо ми поводилися через нього трошечки дурно, та й він поводився дивно.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, teacherId) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(teacherId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
