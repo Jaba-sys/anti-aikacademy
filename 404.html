@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti aik.academy - Помилка 404</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; display: flex; height: 100vh; overflow: hidden; }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 240px; background-color: #f6b319; color: white; display: flex;
+            flex-direction: column; flex-shrink: 0; z-index: 10; transition: margin-left 0.3s ease;
+        }
+        .sidebar.collapsed { margin-left: -240px; }
+        .sidebar-header {
+            padding: 20px; font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 10px;
+            background-color: white; color: #333; border-bottom: 1px solid #e0e0e0; height: 60px;
+        }
+        .sidebar-header img { width: 28px; height: 28px; border-radius: 4px; object-fit: cover; }
+        .menu { list-style: none; margin-top: 20px; flex-grow: 1; }
+        .menu li a {
+            padding: 12px 20px; font-size: 14px; font-weight: 500; display: flex;
+            align-items: center; gap: 10px; color: white; text-decoration: none;
+        }
+        .menu li a.active { background-color: #e53e3e; font-weight: bold; } /* Выделим красным, так как это ошибка */
+        .sidebar-bottom { padding: 15px; margin-top: auto; }
+        .sidebar-bottom img { width: 100%; border-radius: 8px; object-fit: cover; margin-bottom: 10px; }
+        .sidebar-footer { padding: 0 15px 15px 15px; font-size: 11px; color: rgba(255, 255, 255, 0.85); line-height: 1.4; border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 10px; }
+        .sidebar-footer a { color: white; font-weight: bold; text-decoration: underline; }
+        .sidebar-footer a:hover { color: #eee; }
+
+        /* --- Main Content --- */
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; overflow-y: auto; width: 100%; position: relative; }
+        .header { height: 60px; background-color: white; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 1px solid #e0e0e0; flex-shrink: 0; }
+        .header-left { display: flex; align-items: center; gap: 15px; font-size: 18px; font-weight: 600; }
+        .toggle-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #333; display: flex; align-items: center; justify-content: center; padding: 5px; }
+        .toggle-btn:hover { background-color: #f0f0f0; border-radius: 4px; }
+        .header-right { display: flex; align-items: center; gap: 20px; font-size: 14px; }
+        .profile { display: flex; align-items: center; gap: 10px; }
+        .avatar { width: 32px; height: 32px; border-radius: 50%; background-color: #e53e3e; display: flex; justify-content: center; align-items: center; font-size: 11px; color: white; font-weight: bold; }
+        
+        /* --- Content Area --- */
+        .content-area { padding: 20px; max-width: 1200px; margin: 0 auto; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .error-card { background-color: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 40px; border: 1px solid #e0e0e0; border-top: 6px solid #e53e3e; max-width: 500px; width: 100%; }
+        .error-card h1 { font-size: 48px; color: #e53e3e; margin-bottom: 15px; font-weight: bold; }
+        .error-card h3 { font-size: 20px; color: #1a202c; margin-bottom: 10px; }
+        .error-card p { font-size: 14px; color: #718096; line-height: 1.6; margin-bottom: 25px; }
+        .back-btn { display: inline-block; background-color: #f6b319; color: white; text-decoration: none; padding: 12px 24px; font-size: 14px; font-weight: bold; border-radius: 6px; transition: background 0.2s; }
+        .back-btn:hover { background-color: #e09e07; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="https://aik.academy.com.ua/storage/school_theme/om/OMx3OJdYGrvT4LLKH0M7qdtYjz1nRi5ZdJSa3Cv2.png" alt="icon"> 
+            <span>Anti aik.academy</span>
+        </div>
+        <ul class="menu">
+            <li><a class="active">⚠️ Помилка 404</a></li>
+        </ul>
+        <div class="sidebar-bottom">
+            <img src="https://aik.academy.com.ua/storage/school_theme/z5/Z526h2EdojdtqSXhFNnbhNBQ9bfEPSKgHAC0Mf1D.png" alt="Bottom Banner">
+        </div>
+        <div class="sidebar-footer">
+            Цей сайт є копією і створений виключно в ознайомлювальних цілях, не намагаючись нікого образити.<br>
+            <b>Создатель: (скрыто)</b><br><br>
+            <a href="https://aik.academy.com.ua/" target="_blank">Офіційний сайт АІК</a>
+        </div>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <header class="header">
+            <div class="header-left">
+                <button class="toggle-btn" onclick="toggleMenu()">☰</button>
+                Сторінку не знайдено
+            </div>
+            <div class="header-right">
+                <div class="profile">
+                    <div class="avatar">404</div>
+                    <span>Системна помилка</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-area">
+            <div id="secret-trigger" style="
+                position: fixed;
+                top: 2px;
+                right: 2px;
+                width: 7px;
+                height: 7px;
+                background: rgba(128, 128, 128, 0.315);
+                border-radius: 2%;
+                cursor: default;
+                z-index: 10000;
+                user-select: none;
+            "></div>
+            
+            <div id="secret-message" style="
+                display: none; 
+                position: fixed; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%); 
+                background: rgba(15, 15, 15, 0.95); 
+                color: #00ff00; 
+                padding: 20px 30px; 
+                border: 2px solid #00ff00;
+                border-radius: 10px; 
+                font-family: 'Courier New', monospace; 
+                font-size: 20px; 
+                font-weight: bold;
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+                z-index: 10001;
+                text-align: center;
+            ">paniludmila-real.png|agry-pandmitro.png|agry-viktoria.png</div>
+
+            <div class="error-card">
+                <h1>404</h1>
+                <h3>🔒 Доступ неможливий</h3>
+                <p>Запитуваної сторінки не існує або вона була заблокована адміністрацією за порушення правил академії.</p>
+                <a href="index.html" class="back-btn">Повернутися на головну</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+        
+        // Скрипт твоих пасхалок (10 кликов)
+        let clickCount = 0;
+        let clickTimeout;
+        const trigger = document.getElementById('secret-trigger');
+        const message = document.getElementById('secret-message');
+        
+        trigger.addEventListener('click', () => {
+            clearTimeout(clickTimeout);
+            clickTimeout = setTimeout(() => { clickCount = 0; }, 2000);
+            clickCount++;
+            if (clickCount === 10) {
+                message.style.display = 'block';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
