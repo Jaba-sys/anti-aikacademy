@@ -43,6 +43,21 @@
         .teacher-card.warn::before { background-color: #e53e3e; }
         .teacher-photo { width: 115px; height: 115px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid #f6b319; background-color: #fafafa; }
         .teacher-card.warn .teacher-photo { border-color: #e53e3e; }
+        .teacher-cardG { 
+            background-color: rgb(190, 255, 189); 
+            border: 1px solid #e3e8f0; 
+            border-radius: 16px; 
+            padding: 25px; 
+            text-align: center; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+            transition: transform 0.25s ease, box-shadow 0.25s ease; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .teacher-cardG:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        .teacher-cardG::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background-color: #c8ffdd; }
+        .teacher-cardG.warnG .teacher-photoG { border-color: #4bc611; }
+        .teacher-cardG.warnG::before { background-color: #4bc611; }
         .teacher-name { font-size: 19px; font-weight: bold; color: #1a202c; margin-bottom: 4px; }
         .teacher-subject { font-size: 12px; color: #f6b319; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.8px; }
         .teacher-card.warn .teacher-subject { color: #e53e3e; }
@@ -151,6 +166,18 @@
                     <h3 class="teacher-name">Пані Вікторія</h3>
                     <p class="teacher-subject">Технології (Кітайська завода дітей)</p>
                     <p class="teacher-review">Відомий серед учнів як «Пані Франкінштеін». Вона вимусила нас перейти в її группу та змушує процювати зі "як вона говорить" швейною машинкою (колеса каталка) та постійно кричить</p>
+                </div>
+                <div class="teacher-cardG warnG">
+                    <img src="pankreo.png" alt="Пан Кирило" class="teacher-photo">
+                    <h3 class="teacher-name">Пан Кирило</h3>
+                    <p class="teacher-subject">html/комп. лог.</p>
+                    <p class="teacher-review">Відомий серед учнів як «Пан Скороход». Він хороший вчитель він навіть дозволяв грати на пк, та навіть коли учень розбив монітор то він не кричав.</p>
+                </div>
+                <div class="teacher-cardG warnG">
+                    <img src="Tatyana.png" alt="Пані Тетяна" class="teacher-photo">
+                    <h3 class="teacher-name">Пані Тетяна</h3>
+                    <p class="teacher-subject">АНГЛ.</p>
+                    <p class="teacher-review">Відомий серед учнів як «Пані Тетяна». Віна хороший вчитель віна навіть іноді дозволяла грати в кахут</p>
                 </div>
             </div>
         </div>
