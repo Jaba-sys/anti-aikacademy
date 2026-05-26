@@ -57,6 +57,13 @@
         .nickname-box li { font-size: 15px; font-weight: 600; color: #b7791f; margin-bottom: 6px; }
         .nickname-box li:last-child { margin-bottom: 0; }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (sessionStorage.getItem("anti_aik_unlocked") !== "true") {
+                window.location.href = "index.html"; 
+            }
+        });
+    </script>
 </head>
 <body>
 
