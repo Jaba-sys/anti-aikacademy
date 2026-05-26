@@ -44,6 +44,13 @@
         .submit-btn { background-color: #f6b319; color: white; border: none; padding: 12px 24px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
         .submit-btn:hover { background-color: #e09e07; }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (sessionStorage.getItem("anti_aik_unlocked") !== "true") {
+                window.location.href = "index.html"; 
+            }
+        });
+    </script>
 </head>
 <body>
 
