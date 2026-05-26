@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Вхід до системи</title>
+    <style>
+        body { background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        .login-card { background: white; padding: 40px; border-radius: 12px; border-top: 5px solid #f6b319; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #f6b319; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
+        canvas { background: #eee; margin: 10px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <h3>🔒 Вхід до системи</h3>
+    <div class="input-group">
+        <input type="password" id="keyInput" placeholder="Персональний ключ">
+    </div>
+    <canvas id="captchaCanvas" width="150" height="40"></canvas>
+    <div class="input-group">
+        <input type="text" id="captchaInput" placeholder="Код з картинки">
+    </div>
+    <button onclick="checkAccess()">Перейти</button>
+</div>
+
+<script>
+    // Зашифрованные данные (Base64)
+    // Ключ: KL01051995vp -> S0wwMTA1MTk5NXZw
+    // Путь: site/anti-aikacademy/user09324554904846/golovna.html -> c2l0ZS9hbnRpLWFpa2FjYWRlbXkvdXNlcjA5MzI0NTU0OTA0ODQ2L2dvbG92bmEuaHRtbA==
+    
+    const secretKey = "S0wwMTA1MTk5NXZw"; 
+    const targetPath = "c2l0ZS9hbnRpLWFpa2FjYWRlbXkvdXNlcjA5MzI0NTU0OTA0ODQ2L2dvbG92bmEuaHRtbA==";
+
+    let currentCaptcha = "";
+
+    function generateCaptcha() {
+        const canvas = document.getElementById("captchaCanvas");
+        const ctx = canvas.getContext("2d");
+        currentCaptcha = Math.random().toString(36).substring(2, 6).toUpperCase();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "25px Arial";
+        ctx.fillText(currentCaptcha, 45, 30);
+    }
+
+    function checkAccess() {
+        const inputKey = btoa(document.getElementById("keyInput").value);
+        const inputCaptcha = document.getElementById("captchaInput").value;
+
+        if (inputKey === secretKey && inputCaptcha.toUpperCase() === currentCaptcha) {
+            window.location.href = atob(targetPath);
+        } else {
+            alert("Помилка: невірний ключ або код!");
+            generateCaptcha();
+        }
+    }
+
+    generateCaptcha();
+</script>
+</body>
+</html>
