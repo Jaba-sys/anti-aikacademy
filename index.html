@@ -27,10 +27,6 @@
 </div>
 
 <script>
-    // Зашифрованные данные (Base64)
-    // Ключ: KL01051995vp -> S0wwMTA1MTk5NXZw
-    // Путь: site/anti-aikacademy/user09324554904846/golovna.html -> c2l0ZS9hbnRpLWFpa2FjYWRlbXkvdXNlcjA5MzI0NTU0OTA0ODQ2L2dvbG92bmEuaHRtbA==
-    
     const secretKey = "S0wwMTA1MTk5NXZw"; 
     const targetPath = "c2l0ZS9hbnRpLWFpa2FjYWRlbXkvdXNlcjA5MzI0NTU0OTA0ODQ2L2dvbG92bmEuaHRtbA==";
 
@@ -50,6 +46,10 @@
         const inputCaptcha = document.getElementById("captchaInput").value;
 
         if (inputKey === secretKey && inputCaptcha.toUpperCase() === currentCaptcha) {
+            // 1. Устанавливаем "билет" доступа
+            sessionStorage.setItem("anti_aik_unlocked", "true");
+            
+            // 2. Расшифровываем путь и переходим
             window.location.href = atob(targetPath);
         } else {
             alert("Помилка: невірний ключ або код!");
