@@ -40,23 +40,18 @@
         ctx.font = "25px Arial";
         ctx.fillText(currentCaptcha, 45, 30);
     }
-
     function checkAccess() {
         const inputKey = btoa(document.getElementById("keyInput").value);
         const inputCaptcha = document.getElementById("captchaInput").value;
 
         if (inputKey === secretKey && inputCaptcha.toUpperCase() === currentCaptcha) {
-            // 1. Устанавливаем "билет" доступа
             sessionStorage.setItem("anti_aik_unlocked", "true");
-            
-            // 2. Расшифровываем путь и переходим
             window.location.href = atob(targetPath);
         } else {
             alert("Помилка: невірний ключ або код!");
             generateCaptcha();
         }
     }
-
     generateCaptcha();
 </script>
 </body>
