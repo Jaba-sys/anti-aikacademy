@@ -57,6 +57,13 @@
         .feature-box h3 { font-size: 18px; color: #1a202c; margin-bottom: 10px; font-weight: 600; }
         .feature-box p { font-size: 14px; color: #718096; line-height: 1.5; }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (sessionStorage.getItem("anti_aik_unlocked") !== "true") {
+                window.location.href = "index.html"; 
+            }
+        });
+    </script>
 </head>
 <body>
     <aside class="sidebar" id="sidebar">
