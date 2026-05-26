@@ -102,6 +102,53 @@
         </header>
 
         <div class="welcome-container">
+            <div class="content-area">
+            <div id="secret-trigger" style="
+            position: fixed;
+            top: 2px;
+            right: 2px;
+            width: 7px;
+            height: 7px;
+            background: rgba(128, 128, 128, 0.315); /* Еле-еле заметный серый цвет */
+            border-radius: 2%; /* Сделаем её круглой, чтобы выглядела как случайная пылинка */
+            cursor: default;
+            z-index: 10000;
+            user-select: none;
+            "></div><div id="secret-message" style="
+                display: none; 
+                position: fixed; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%); 
+                background: rgba(15, 15, 15, 0.95); 
+                color: #00ff00; 
+                padding: 20px 30px; 
+                border: 2px solid #00ff00;
+                border-radius: 10px; 
+                font-family: 'Courier New', monospace; 
+                font-size: 20px; 
+                font-weight: bold;
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+                z-index: 10001;
+                text-align: center;">paniludmila-real.png|agry-pandmitro.png|agry-viktoria.png</div>
+            <script>
+            let clickCount = 0;
+            let clickTimeout;
+            const trigger = document.getElementById('secret-trigger');
+            const message = document.getElementById('secret-message');
+            trigger.addEventListener('click', () => {
+                clearTimeout(clickTimeout);
+                clickTimeout = setTimeout(() => { clickCount = 0; }, 2000);
+                clickCount++;
+                if (clickCount === 10) {
+                    message.style.display = 'block';
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                    }, 3000);
+                }
+            });
+        </script>
+            
             <div class="welcome-card">
                 <div class="welcome-badge">Незалежний архів та викриття</div>
                 <h1>Ласкаво просимо на Anti aik.academy!</h1>
