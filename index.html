@@ -35,22 +35,36 @@
         ctx.font = "25px Arial";
         ctx.fillText(currentCaptcha, 45, 30);
     }
-    const secretShift = 42; 
-    const encryptedKey = "aN.c+c/7.7126"; 
+    const secretArray = [107, 112, 36, 37, 36, 41, 37, 29, 29, 41, 115, 108];
     function checkAccess() {
         const inputKey = document.getElementById("keyInput").value.trim();
         const inputCaptcha = document.getElementById("captchaInput").value.trim();
-        const encryptedInput = inputKey.split('').map(char => 
-            String.fromCharCode(char.charCodeAt(0) ^ secretShift)
-        ).join('');
-        if (encryptedInput === encryptedKey && inputCaptcha.toUpperCase() === currentCaptcha) {
+        console.log("--- ОТЛАДКА ПРОВЕРКИ ---");
+        console.log("Введено ключа: " + inputKey);
+        let isValid = (inputKey.length === secretArray.length);
+        if (!isValid) {
+            console.log("Ошибка: Длина ключа не совпадает! Ожидалось " + secretArray.length + " символов, получено " + inputKey.length);
+        } else {
+            for (let i = 0; i < inputKey.length; i++) {
+                let calculated = (inputKey.charCodeAt(i) ^ 42) + 10;
+                if (calculated !== secretArray[i]) {
+                    console.log("Ошибка на символе '" + inputKey[i] + "' (позиция " + (i+1) + ")");
+                    console.log("-> Ваш результат: " + calculated + " | Правильный результат: " + secretArray[i]);
+                    isValid = false;
+                }
+            }
+        
+        if (isValid && inputCaptcha.toUpperCase() === currentCaptcha) {
+            console.log("Успех!");
             sessionStorage.setItem("anti_aik_unlocked", "true");
             window.location.href = atob(targetPath);
         } else {
+            console.log("Доступ отклонен.");
             alert("Помилка: невірний ключ або код!");
             generateCaptcha();
         }
     }
+
     generateCaptcha();
 </script>
 </body>
