@@ -27,9 +27,9 @@
 </div>
 
 <script>
-    /*const secretKey = "S0wwMTA1MTk5NXZw";*/
     const targetPath = "c2l0ZS9hbnRpLWFpa2FjYWRlbXkvdXNlcjA5MzI0NTU0OTA0ODQ2L2dvbG92bmEuaHRtbA==";
     let currentCaptcha = "";
+
     function generateCaptcha() {
         const canvas = document.getElementById("captchaCanvas");
         const ctx = canvas.getContext("2d");
@@ -38,30 +38,30 @@
         ctx.font = "25px Arial";
         ctx.fillText(currentCaptcha, 45, 30);
     }
+
     const secretShift = 42; 
     const encryptedKey = "aN.c+c/7.71z"; 
+
     function checkAccess() {
-        const inputKey = document.getElementById("keyInput").value.trim(); // .trim() убирает случайные пробелы
+        const inputKey = document.getElementById("keyInput").value.trim();
         const inputCaptcha = document.getElementById("captchaInput").value.trim();
 
-    // Шифруем ввод
+        // Шифруем ввод пользователя тем же алгоритмом
         const encryptedInput = inputKey.split('').map(char => 
             String.fromCharCode(char.charCodeAt(0) ^ secretShift)
         ).join('');
 
-    // ОТЛАДКА: выведет в консоль браузера то, что получилось из вашего ввода
-        console.log("Введено: " + inputKey);
-        console.log("Зашифровано: " + encryptedInput); 
-        console.log("Эталон: " + encryptedCorrectKey);
-
-        if (encryptedInput === encryptedCorrectKey && inputCaptcha.toUpperCase() === currentCaptcha) {
+        // Сравниваем зашифрованный ввод с эталоном (encryptedKey)
+        if (encryptedInput === encryptedKey && inputCaptcha.toUpperCase() === currentCaptcha) {
             sessionStorage.setItem("anti_aik_unlocked", "true");
             window.location.href = atob(targetPath);
         } else {
-            alert("Помилка! Подивіться в консоль (F12), що не так.");
+            alert("Помилка: невірний ключ або код!");
             generateCaptcha();
-      }
-}
+        }
+    }
+
+    generateCaptcha();
 </script>
 </body>
 </html>
