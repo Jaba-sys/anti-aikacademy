@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+
 <div class="login-card">
     <h3>🔒 Вхід до системи</h3>
     <div class="input-group">
@@ -26,48 +27,42 @@
     </div>
     <button onclick="checkAccess()">Перейти</button>
 </div>
+
 <script>
     const targetPath = "c2l0ZS9hbnRpLWFpa2FjYWRlbXkvdXNlcjA5MzI0NTU0OTA0ODQ2L2dvbG92bmEuaHRtbA==";
-    let currentCaptcha = "";
-    function generateCaptcha() {
-        const canvas = document.getElementById("captchaCanvas");
-        const ctx = canvas.getContext("2d");
-        currentCaptcha = Math.random().toString(36).substring(2, 6).toUpperCase();
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = "25px Arial";
-        ctx.fillText(currentCaptcha, 45, 30);
-    }
     const secretArray = [107, 112, 36, 37, 36, 41, 37, 29, 29, 41, 115, 108];
+
     function checkAccess() {
         const inputKey = document.getElementById("keyInput").value.trim();
-        const inputCaptcha = document.getElementById("captchaInput").value.trim();
+        
         console.log("--- ОТЛАДКА ПРОВЕРКИ ---");
         console.log("Введено ключа: " + inputKey);
+
         let isValid = (inputKey.length === secretArray.length);
-        if (!isValid) {
-            console.log("Ошибка: Длина ключа не совпадает! Ожидалось " + secretArray.length + " символов, получено " + inputKey.length);
-        } else {
+        
+        if (isValid) {
             for (let i = 0; i < inputKey.length; i++) {
                 let calculated = (inputKey.charCodeAt(i) ^ 42) + 10;
                 if (calculated !== secretArray[i]) {
                     console.log("Ошибка на символе '" + inputKey[i] + "' (позиция " + (i+1) + ")");
                     console.log("-> Ваш результат: " + calculated + " | Правильный результат: " + secretArray[i]);
                     isValid = false;
+                    break;
                 }
             }
-        
-        if (isValid && inputCaptcha.toUpperCase() === currentCaptcha) {
+        } else {
+            console.log("Ошибка: длина ключа неверна.");
+        }
+
+        if (isValid) {
             console.log("Успех!");
             sessionStorage.setItem("anti_aik_unlocked", "true");
             window.location.href = atob(targetPath);
         } else {
             console.log("Доступ отклонен.");
-            alert("Помилка: невірний ключ або код!");
-            generateCaptcha();
+            alert("Помилка: невірний ключ!");
         }
     }
-
-    generateCaptcha();
 </script>
 </body>
 </html>
