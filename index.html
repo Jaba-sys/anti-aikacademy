@@ -13,7 +13,6 @@
     </style>
 </head>
 <body>
-
 <div class="login-card">
     <h3>🔒 Вхід до системи</h3>
     <div class="input-group">
@@ -25,11 +24,9 @@
     </div>
     <button onclick="checkAccess()">Перейти</button>
 </div>
-
 <script>
     const targetPath = "c2l0ZS9hbnRpLWFpa2FjYWRlbXkvdXNlcjA5MzI0NTU0OTA0ODQ2L2dvbG92bmEuaHRtbA==";
     let currentCaptcha = "";
-
     function generateCaptcha() {
         const canvas = document.getElementById("captchaCanvas");
         const ctx = canvas.getContext("2d");
@@ -38,20 +35,14 @@
         ctx.font = "25px Arial";
         ctx.fillText(currentCaptcha, 45, 30);
     }
-
     const secretShift = 42; 
-    const encryptedKey = "aN.c+c/7.71z"; 
-
+    const encryptedKey = "aN.c+c/7.7126"; 
     function checkAccess() {
         const inputKey = document.getElementById("keyInput").value.trim();
         const inputCaptcha = document.getElementById("captchaInput").value.trim();
-
-        // Шифруем ввод пользователя тем же алгоритмом
         const encryptedInput = inputKey.split('').map(char => 
             String.fromCharCode(char.charCodeAt(0) ^ secretShift)
         ).join('');
-
-        // Сравниваем зашифрованный ввод с эталоном (encryptedKey)
         if (encryptedInput === encryptedKey && inputCaptcha.toUpperCase() === currentCaptcha) {
             sessionStorage.setItem("anti_aik_unlocked", "true");
             window.location.href = atob(targetPath);
@@ -60,7 +51,6 @@
             generateCaptcha();
         }
     }
-
     generateCaptcha();
 </script>
 </body>
