@@ -41,20 +41,27 @@
     const secretShift = 42; 
     const encryptedKey = "aN.c+c/7.71z"; 
     function checkAccess() {
-        const inputKey = document.getElementById("keyInput").value;
-        const inputCaptcha = document.getElementById("captchaInput").value;
-        const decryptedInput = inputKey.split('').map(char => 
+        const inputKey = document.getElementById("keyInput").value.trim(); // .trim() убирает случайные пробелы
+        const inputCaptcha = document.getElementById("captchaInput").value.trim();
+
+    // Шифруем ввод
+        const encryptedInput = inputKey.split('').map(char => 
             String.fromCharCode(char.charCodeAt(0) ^ secretShift)
         ).join('');
-        if (decryptedInput === encryptedKey && inputCaptcha.toUpperCase() === currentCaptcha) {
+
+    // ОТЛАДКА: выведет в консоль браузера то, что получилось из вашего ввода
+        console.log("Введено: " + inputKey);
+        console.log("Зашифровано: " + encryptedInput); 
+        console.log("Эталон: " + encryptedCorrectKey);
+
+        if (encryptedInput === encryptedCorrectKey && inputCaptcha.toUpperCase() === currentCaptcha) {
             sessionStorage.setItem("anti_aik_unlocked", "true");
             window.location.href = atob(targetPath);
         } else {
-            alert("Помилка доступу!");
+            alert("Помилка! Подивіться в консоль (F12), що не так.");
             generateCaptcha();
-        }
-    }
-    generateCaptcha();
+      }
+}
 </script>
 </body>
 </html>
