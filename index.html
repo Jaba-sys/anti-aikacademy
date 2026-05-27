@@ -8,19 +8,20 @@
         .login-card { background: white; padding: 40px; border-radius: 12px; border-top: 5px solid #f6b319; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 350px; text-align: center; }
         .input-group { margin-bottom: 15px; text-align: left; }
         input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input:disabled { background-color: #f9f9f9; color: #888; cursor: not-allowed; }
         button { background: #f6b319; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
-        canvas { background: #eee; margin: 10px 0; border-radius: 4px; }
     </style>
 </head>
 <body>
 <div class="login-card">
     <h3>🔒 Вхід до системи</h3>
     <div class="input-group">
-        <input type="password" id="keyInput" placeholder="Персональний ключ">
+        <label style="font-size: 12px; color: #666;">Користувач:</label>
+        <input type="text" value="Anti-Aikovec" disabled>
     </div>
-    <canvas id="captchaCanvas" width="150" height="40"></canvas>
     <div class="input-group">
-        <input type="text" id="captchaInput" placeholder="Код з картинки">
+        <label style="font-size: 12px; color: #666;">Персональний ключ:</label>
+        <input type="password" id="keyInput" placeholder="Введіть ключ">
     </div>
     <button onclick="checkAccess()">Перейти</button>
 </div>
