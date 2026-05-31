@@ -38,22 +38,38 @@
         /* --- Content Area --- */
         .content-area { padding: 20px; max-width: 1200px; margin: 0 auto; width: 100%; }
         .teachers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
-        .teacher-card { background-color: white; border: 1px solid #e3e8f0; border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: transform 0.25s ease, box-shadow 0.25s ease; position: relative; overflow: hidden; }
+        .teacher-card { background-color: white; border: 1px solid #e3e8f0; border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: transform 0.25s ease, box-shadow 0.25s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         .teacher-card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
         .teacher-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background-color: #e2e8f0; }
         .teacher-card.warn::before { background-color: #e53e3e; }
-        .teacher-photo { width: 115px; height: 115px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid #f6b319; background-color: #fafafa; }
+        .teacher-photo { width: 115px; height: 115px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px auto; border: 4px solid #f6b319; background-color: #fafafa; }
         .teacher-card.warn .teacher-photo { border-color: #e53e3e; }
+        
         .teacher-cardG { background-color: rgb(190, 255, 189); border: 1px solid #e3e8f0; border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: transform 0.25s ease, box-shadow 0.25s ease; position: relative; overflow: hidden; }
         .teacher-cardG:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
         .teacher-cardG::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background-color: #c8ffdd; }
         .teacher-cardG.warnG .teacher-photoG { border-color: #4bc611; }
         .teacher-cardG.warnG::before { background-color: #4bc611; }
+        
         .teacher-name { font-size: 19px; font-weight: bold; color: #1a202c; margin-bottom: 4px; }
         .teacher-subject { font-size: 12px; color: #f6b319; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.8px; }
         .teacher-card.warn .teacher-subject { color: #e53e3e; }
-        .teacher-review { font-size: 14px; color: #4a5568; line-height: 1.6; text-align: left; background: #f7fafc; padding: 14px; border-radius: 10px; border-left: 4px solid #cbd5e0; }
+        .teacher-review { font-size: 14px; color: #4a5568; line-height: 1.6; text-align: left; background: #f7fafc; padding: 14px; border-radius: 10px; border-left: 4px solid #cbd5e0; flex-grow: 1; }
         .teacher-card.warn .teacher-review { border-left-color: #e53e3e; background: #fffaf0; }
+
+        /* --- Кнопка для вирша --- */
+        .poem-btn { background: #e53e3e; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 13px; transition: background 0.2s, transform 0.1s; width: 100%; }
+        .poem-btn:hover { background: #c53030; transform: scale(1.02); }
+
+        /* --- Модальне вікно (Попап з розмиттям) --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-card { background: white; width: 90%; max-width: 650px; max-height: 80vh; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); position: relative; display: flex; flex-direction: column; animation: slideUp 0.3s ease; border-top: 6px solid #e53e3e; }
+        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { padding: 20px 25px; font-size: 20px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #1a202c; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { background-color: #e53e3e; color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; position: absolute; top: 15px; right: 20px; box-shadow: 0 2px 8px rgba(229, 62, 62, 0.4); }
+        .close-btn:hover { background-color: #c53030; }
+        .modal-body { padding: 25px; overflow-y: auto; font-size: 15px; line-height: 1.7; color: #2d3748; white-space: pre-line; font-style: italic; background: #fffdf9; }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -104,29 +120,41 @@
             <h2 style="font-size: 20px;">Досьє на викладачів</h2>
             <div class="teachers-grid">
                 <div class="teacher-card warn">
-                    <img src="poniala.png" alt="Людмила" class="teacher-photo">
-                    <h3 class="teacher-name">Людмила</h3>
-                    <p class="teacher-subject">Викладач</p>
-                    <p class="teacher-review">Змушувала робити дуже багато роботи й постійно влаштовувала різні капості...</p>
+                    <div>
+                        <img src="poniala.png" alt="Людмила" class="teacher-photo">
+                        <h3 class="teacher-name">Людмила</h3>
+                        <p class="teacher-subject">Викладач</p>
+                        <p class="teacher-review">Змушувала робити дуже багато роботи й постійно влаштовувала різні капості...</p>
+                    </div>
                 </div>
                 <div class="teacher-card warn">
-                    <img src="pandmitro.png" alt="Пан Дмитро" class="teacher-photo">
-                    <h3 class="teacher-name">Пан Дмитро</h3>
-                    <p class="teacher-subject">Дизайн інтерфейсів (Figma)</p>
-                    <p class="teacher-review">Постійно запізнюється на уроки (колись прийшов на останні 5 хвилин!), змушує працювати у нецікавій Фігмі та вигадує дивні кличкі учням.</p>
+                    <div>
+                        <img src="pandmitro.png" alt="Пан Дмитро" class="teacher-photo">
+                        <h3 class="teacher-name">Пан Дмитро</h3>
+                        <p class="teacher-subject">Дизайн інтерфейсів (Figma)</p>
+                        <p class="teacher-review">Постійно запізнюється на уроки (колись прийшов на останні 5 хвилин!), змушує працювати у нецікавій Фігмі та вигадує дивні кличкі учням.</p>
+                    </div>
                 </div>
                 <div class="teacher-card warn">
-                    <img src="bartiuk.png" alt="Пан Микита" class="teacher-photo">
-                    <h3 class="teacher-name">Пан Микита</h3>
-                    <p class="teacher-subject">Викладач</p>
-                    <p class="teacher-review">Відомий серед учнів як «Пан Грю». Поводиться занадто прискіпливо, через що класна атмосфера на його уроках миттєво падає.</p>
+                    <div>
+                        <img src="bartiuk.png" alt="Пан Микита" class="teacher-photo">
+                        <h3 class="teacher-name">Пан Микита</h3>
+                        <p class="teacher-subject">Викладач</p>
+                        <p class="teacher-review">Відомий серед учнів як «Пан Грю». Поводиться занадто прискіпливо, через що класна атмосфера на його уроках миттєво падає.</p>
+                    </div>
                 </div>
+                
+                <!-- КАРТКА ПАНІ ВІКТОРІЇ З КНОПКОЮ -->
                 <div class="teacher-card warn">
-                    <img src="viktoriia.png" alt="Пані Вікторія" class="teacher-photo">
-                    <h3 class="teacher-name">Пані Вікторія</h3>
-                    <p class="teacher-subject">Технології (Кітайська завода дітей)</p>
-                    <p class="teacher-review">Відомий серед учнів як «Пані Франкінштеін». Вона вимусила нас перейти в її группу та змушує процювати зі "як вона говорить" швейною машинкою (колеса каталка) та постійно кричить</p>
+                    <div>
+                        <img src="viktoriia.png" alt="Пані Вікторія" class="teacher-photo">
+                        <h3 class="teacher-name">Пані Вікторія</h3>
+                        <p class="teacher-subject">Технології (Китайський завод дітей)</p>
+                        <p class="teacher-review">Відома серед учнів як «Пані Франкенштейн». Вона вимусила нас перейти в її группу та змушує процювати зі "як вона говорить" швейною машинкою (колеса каталка) та постійно кричить</p>
+                    </div>
+                    <button class="poem-btn" onclick="openPoemModal()">Читати її вірш 📜</button>
                 </div>
+                
                 <div class="teacher-cardG warnG">
                     <img src="pankreo.png" alt="Пан Кирило" class="teacher-photo">
                     <h3 class="teacher-name">Пан Кирило</h3>
@@ -137,7 +165,7 @@
                     <img src="Tatyana.png" alt="Пані Тетяна" class="teacher-photo">
                     <h3 class="teacher-name">Пані Тетяна</h3>
                     <p class="teacher-subject">АНГЛ.</p>
-                    <p class="teacher-review">Відомий серед учнів як «Пані Тетяна». Віна хороший вчитель віна навіть іноді дозволяла грати в кахут</p>
+                    <p class="teacher-review">Відомий серед учнів як «Пані Тетяна». Віна хороший вчитель віна даже іноді дозволяла грати в кахут</p>
                 </div>
                 <div class="teacher-cardG warnG">
                     <img src="/darya.png" alt="Пані Darya" class="teacher-photo">
@@ -149,8 +177,95 @@
         </div>
     </main>
 
+    <!-- МОДАЛЬНЕ ВІКНО З ВІРШЕМ -->
+    <div class="modal-overlay" id="poemModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span>📜 Вірш про Пані Франкенштейн</span>
+                <button class="close-btn" onclick="closePoemModal()">✕</button>
+            </div>
+            <div class="modal-body">
+Скільки разів кохані мною чоловіки
+Вбивали мене, розривали на шматки, —
+Ти завжди йшов по сліду, збираючи шматки мертвечини:
+Моє волосся, кістки… Але недбайлива дочка я —
+Нічому не вчуся… І знову ти зібрав і зшив
+Розчленовані частини — і знову вдихаешь життя,
+Ловиш блискавки, високовольтним розрядом
+Запускаєш розбите серце. Після лягаєш поруч,
+Золотою бородою шелестячи, ніжно дихаєш мені в шию,
+І бурмочеш: «Прокинься, дитя. Оживи, Галатеє».
+
+Перший вдих робити боляче, тим паче, коли він не перший.
+Але боляче дивитися. «Нехай цього разу буде стервом,» —
+Тихо молишся, — «Боже, боже, нехай цього разу буде злою,
+Неприступною і товстошкірою, наростить нехай кольчужний шар,
+Щоб не пробити ні лайливим словом, ні вилами, ні штиком,
+Ні зрадою підлою. Нехай смолоскипи гасить плювком.
+Подаруй їй холодне серце і гострі зуби на додачу.
+Не ось це ось усе: довірливе, собаче,
+Нерозумне, ніжне, що жадібно прагне любові,
+Оце «ти тільки свини», «тільки мене поклич»…
+І нехай носить камінь у жмені — і готова ним бити без жалю —
+Але зате зможе вирости, розквітнути, подорослішати й дожити до старості…
+Нової смерті не перенесу!» — але ніхто не відповість.
+Сам ти бог, і диявол, і страшний суд — і ти безсмертний.
+Марно випрошувати милості у самого себе.
+Сенс циклічності незворотності в тому, що ти не помреш у скорботі —
+
+Усе ти винесеш. Знову і знову. Перший крок і розбитий лоб,
+Перший зуб і перше слово, кілометри відшльопаних поп,
+Кілограми батогів і пряників, — панацею знову не знайти,
+Одноразова механіка — немає протоптаного шляху…
+Снову двійка, «потім перездам», математика, правопис
+200 разів «встаньте в куток, мадам» — дуже дивне покарання.
+Невпевненість і прищі, груди й список завдань на літо —
+Усе росте у мене. «Не шукай, не втрачай — ночую у Світи!»
+Мені 15. Майже ювілей. Я закохалася. Тобі стало млосно.
+У школу треба 500 рублів. "Сигарети? — забув Антошка!"
+Перед дзеркалом крутитимусь у модній спідниці. «Яка текіла?
+Не пила я! Зовсім трохи. Тільки капельку пригубила».
+Молодой пузочес-стрибун хижо вищирився на афіші…
+«Відпусти, все одно втечу! Ненавиджу тебе! Ненавиджу!»
+
+Телефон вимкнений три дні. Абонент поза мережею…
+Ось була я — і немає мене. Шепочеш: «Упустив…
+Неокрепле дурне звірятко, заманили — і за шкірки,
+Ось же, знову не вберіг… ідіот, дурак!
+
+Навіть панцером не обріс… дуже рано цього разу…»
+І ти знову вірний мій Алекс Кросс, Шерлок Холмс, Ераст
+(як по батькові вас? Петрович!) Допоможи. Відшукай мене.
+Сльози, волосся, краплі крові, чоботи, ступня…
+Збери салат, замішай коктейль, — і як пазл мене склади.
+Воскреси мене, пані Франкенштейн…
+Мені хочеться жити!
+            </div>
+        </div>
+    </div>
+
     <script>
-        function toggleMenu() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+        function toggleMenu() { 
+            document.getElementById('sidebar').classList.toggle('collapsed'); 
+        }
+
+        // Функції для роботи з попапом вірша
+        function openPoemModal() {
+            const modal = document.getElementById('poemModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closePoemModal() {
+            const modal = document.getElementById('poemModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        // Закриття при кліку на розмиту область поза карткою
+        document.getElementById('poemModal').addEventListener('click', function(e) {
+            if (e.target === this) closePoemModal();
+        });
     </script>
 </body>
 </html>
