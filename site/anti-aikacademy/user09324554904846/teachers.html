@@ -60,15 +60,20 @@
         /* --- Кнопка для вирша --- */
         .poem-btn { background: #e53e3e; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 13px; transition: background 0.2s, transform 0.1s; width: 100%; }
         .poem-btn:hover { background: #c53030; transform: scale(1.02); }
+        .teacher-card:nth-child(3) .poem-btn { background: #f6b319; } /* Жовта кнопка для Пана Грю для краси */
+        .teacher-card:nth-child(3) .poem-btn:hover { background: #dca014; }
 
         /* --- Модальне вікно (Попап з розмиттям) --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-card { background: white; width: 90%; max-width: 650px; max-height: 80vh; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); position: relative; display: flex; flex-direction: column; animation: slideUp 0.3s ease; border-top: 6px solid #e53e3e; }
+        #gryuModal .modal-card { border-top-color: #f6b319; } /* Верхня плашка для вікна Пана Грю */
         @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .modal-header { padding: 20px 25px; font-size: 20px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #1a202c; display: flex; justify-content: space-between; align-items: center; }
         .close-btn { background-color: #e53e3e; color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; position: absolute; top: 15px; right: 20px; box-shadow: 0 2px 8px rgba(229, 62, 62, 0.4); }
         .close-btn:hover { background-color: #c53030; }
+        #gryuModal .close-btn { background-color: #f6b319; box-shadow: 0 2px 8px rgba(246, 179, 25, 0.4); }
+        #gryuModal .close-btn:hover { background-color: #dca014; }
         .modal-body { padding: 25px; overflow-y: auto; font-size: 15px; line-height: 1.7; color: #2d3748; white-space: pre-line; font-style: italic; background: #fffdf9; }
     </style>
     <script>
@@ -135,6 +140,8 @@
                         <p class="teacher-review">Постійно запізнюється на уроки (колись прийшов на останні 5 хвилин!), змушує працювати у нецікавій Фігмі та вигадує дивні кличкі учням.</p>
                     </div>
                 </div>
+                
+                <!-- КАРТКА ПАНА МИКИТУ З НОВИМ UWU-ВІРШЕМ -->
                 <div class="teacher-card warn">
                     <div>
                         <img src="bartiuk.png" alt="Пан Микита" class="teacher-photo">
@@ -142,9 +149,10 @@
                         <p class="teacher-subject">Викладач</p>
                         <p class="teacher-review">Відомий серед учнів як «Пан Грю». Поводиться занадто прискіпливо, через що класна атмосфера на його уроках миттєво падає.</p>
                     </div>
+                    <button class="poem-btn" onclick="openModal('gryuModal')">Читати його вірш 📜</button>
                 </div>
                 
-                <!-- КАРТКА ПАНІ ВІКТОРІЇ З КНОПКОЮ -->
+                <!-- КАРТКА ПАНІ ВІКТОРІЇ -->
                 <div class="teacher-card warn">
                     <div>
                         <img src="viktoriia.png" alt="Пані Вікторія" class="teacher-photo">
@@ -152,7 +160,7 @@
                         <p class="teacher-subject">Технології (Китайський завод дітей)</p>
                         <p class="teacher-review">Відома серед учнів як «Пані Франкенштейн». Вона вимусила нас перейти в її группу та змушує процювати зі "як вона говорить" швейною машинкою (колеса каталка) та постійно кричить</p>
                     </div>
-                    <button class="poem-btn" onclick="openPoemModal()">Читати її вірш 📜</button>
+                    <button class="poem-btn" onclick="openModal('victoriaModal')">Читати її вірш 📜</button>
                 </div>
                 
                 <div class="teacher-cardG warnG">
@@ -177,12 +185,12 @@
         </div>
     </main>
 
-    <!-- МОДАЛЬНЕ ВІКНО З ВІРШЕМ -->
-    <div class="modal-overlay" id="poemModal">
+    <!-- МОДАЛЬНЕ ВІКНО 1: ВІРШ ПАНІ ВІКТОРІЇ -->
+    <div class="modal-overlay" id="victoriaModal">
         <div class="modal-card">
             <div class="modal-header">
                 <span>📜 Вірш про Пані Франкенштейн</span>
-                <button class="close-btn" onclick="closePoemModal()">✕</button>
+                <button class="close-btn" onclick="closeModal('victoriaModal')">✕</button>
             </div>
             <div class="modal-body">
 Скільки разів кохані мною чоловіки
@@ -192,7 +200,7 @@
 Нічому не вчуся… І знову ти зібрав і зшив
 Розчленовані частини — і знову вдихаешь життя,
 Ловиш блискавки, високовольтним розрядом
-Запускаєш розбите серце. Після лягаєш поруч,
+Запускаєш розбите серце. После лягаєш поруч,
 Золотою бородою шелестячи, ніжно дихаєш мені в шию,
 І бурмочеш: «Прокинься, дитя. Оживи, Галатеє».
 
@@ -239,7 +247,53 @@
 Сльози, волосся, краплі крові, чоботи, ступня…
 Збери салат, замішай коктейль, — і як пазл мене склади.
 Воскреси мене, пані Франкенштейн…
-Мені хочеться жити!
+Мне хочеться жити!
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНЕ ВІКНО 2: МИЛИЙ UWU-ВІРШ ПАНА МИКИТИ (ГРЮ) -->
+    <div class="modal-overlay" id="gryuModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span>🧸 UWU-пісенька для Пана Грюсіка</span>
+                <button class="close-btn" onclick="closeModal('gryuModal')">✕</button>
+            </div>
+            <div class="modal-body">
+У серденьку теплому, де мрієчка жива, ✨
+Де тихо розквітає вечірня зіронька, 
+Живе мила добротка і теплі словечка,
+Які нам дарує **Пан Грюсік** щодня. 🥺
+
+Коли на душеньці залягає туманчик,
+І сумненько стає серед сірих стіночок,
+Він **ручечку** протягне крізь океанчик, 🐾
+Розвіє турботки нам **Пан Грюсік** усім.
+
+Опоронька й спокій у кожній хвилиночці,
+Для кожного друга — надійна **ручечка**. 💞
+Найкраща людинка на всьому світику,
+Це наш дорогенький і рідний **Пан Грю**.
+
+Він словечко порадить, розрадить в бідоньці,
+Покаже, де світлечко в темні часи. ☀️
+І ми пам'ятатимемо завжди-завжди,
+Які нам дива дарував **Пан Грюнька**.
+
+Усмішечка ласкава і солодкий **понюсик**, 🐾
+Він вміє розтопити зимовий лідок.
+Приносить у дім настрій весняненький,
+І радоньку приносить **Пан Грюсік** у світик. 🌍
+
+Нехай обминають його всі тривожки,
+Хай доленька дарує щасливі літа. 💫
+Рівненькими будуть життєві дорожки,
+Якими іде світлий **Пан Грю** щодня.
+
+І вечірчик приходить, затихли містечка,
+А в серденьку лишається теплий слідок.
+Ця пісенька душевна, проста і свята,
+Звучить для тебе, милесенький **Пан Грю**! 💖✨
             </div>
         </div>
     </div>
@@ -249,22 +303,28 @@
             document.getElementById('sidebar').classList.toggle('collapsed'); 
         }
 
-        // Функції для роботи з попапом вірша
-        function openPoemModal() {
-            const modal = document.getElementById('poemModal');
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10);
+        // Універсальні функції для відкриття та закриття будь-яких модальних вікон за ID
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
         }
 
-        function closePoemModal() {
-            const modal = document.getElementById('poemModal');
-            modal.classList.remove('active');
-            setTimeout(() => modal.style.display = 'none', 300);
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
         }
 
-        // Закриття при кліку на розмиту область поза карткою
-        document.getElementById('poemModal').addEventListener('click', function(e) {
-            if (e.target === this) closePoemModal();
+        // Автоматичне закриття вікна при кліку на розмиту область поза карткою
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeModal(e.target.id);
+            }
         });
     </script>
 </body>
