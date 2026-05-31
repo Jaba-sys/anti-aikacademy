@@ -57,23 +57,36 @@
         .teacher-review { font-size: 14px; color: #4a5568; line-height: 1.6; text-align: left; background: #f7fafc; padding: 14px; border-radius: 10px; border-left: 4px solid #cbd5e0; flex-grow: 1; }
         .teacher-card.warn .teacher-review { border-left-color: #e53e3e; background: #fffaf0; }
 
-        /* --- Кнопка для вирша --- */
-        .poem-btn { background: #e53e3e; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 13px; transition: background 0.2s, transform 0.1s; width: 100%; }
+        /* --- Кнопки для виршів --- */
+        .poem-btn { color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 13px; transition: background 0.2s, transform 0.1s; width: 100%; background: #e53e3e; }
         .poem-btn:hover { background: #c53030; transform: scale(1.02); }
-        .teacher-card:nth-child(3) .poem-btn { background: #f6b319; } /* Жовта кнопка для Пана Грю для краси */
+        
+        /* Стилізація кнопок окремо під кожного вчителя */
+        .teacher-card:nth-child(2) .poem-btn { background: #1e62a1; } /* Синя для Пана Дмитра */
+        .teacher-card:nth-child(2) .poem-btn:hover { background: #144471; }
+        .teacher-card:nth-child(3) .poem-btn { background: #f6b319; } /* Жовта для Пана Микити */
         .teacher-card:nth-child(3) .poem-btn:hover { background: #dca014; }
 
         /* --- Модальне вікно (Попап з розмиттям) --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-card { background: white; width: 90%; max-width: 650px; max-height: 80vh; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); position: relative; display: flex; flex-direction: column; animation: slideUp 0.3s ease; border-top: 6px solid #e53e3e; }
-        #gryuModal .modal-card { border-top-color: #f6b319; } /* Верхня плашка для вікна Пана Грю */
+        
+        /* Кастомізація плашок модальних вікон */
+        #dmitroModal .modal-card { border-top-color: #1e62a1; }
+        #gryuModal .modal-card { border-top-color: #f6b319; }
+        
         @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .modal-header { padding: 20px 25px; font-size: 20px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #1a202c; display: flex; justify-content: space-between; align-items: center; }
-        .close-btn { background-color: #e53e3e; color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; position: absolute; top: 15px; right: 20px; box-shadow: 0 2px 8px rgba(229, 62, 62, 0.4); }
+        
+        .close-btn { color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; position: absolute; top: 15px; right: 20px; background-color: #e53e3e; box-shadow: 0 2px 8px rgba(229, 62, 62, 0.4); }
         .close-btn:hover { background-color: #c53030; }
+        
+        #dmitroModal .close-btn { background-color: #1e62a1; box-shadow: 0 2px 8px rgba(30, 98, 161, 0.4); }
+        #dmitroModal .close-btn:hover { background-color: #144471; }
         #gryuModal .close-btn { background-color: #f6b319; box-shadow: 0 2px 8px rgba(246, 179, 25, 0.4); }
         #gryuModal .close-btn:hover { background-color: #dca014; }
+        
         .modal-body { padding: 25px; overflow-y: auto; font-size: 15px; line-height: 1.7; color: #2d3748; white-space: pre-line; font-style: italic; background: #fffdf9; }
     </style>
     <script>
@@ -132,6 +145,8 @@
                         <p class="teacher-review">Змушувала робити дуже багато роботи й постійно влаштовувала різні капості...</p>
                     </div>
                 </div>
+                
+                <!-- КАРТКА ПАНА ДМИТРА З КНОПКОЮ -->
                 <div class="teacher-card warn">
                     <div>
                         <img src="pandmitro.png" alt="Пан Дмитро" class="teacher-photo">
@@ -139,15 +154,16 @@
                         <p class="teacher-subject">Дизайн інтерфейсів (Figma)</p>
                         <p class="teacher-review">Постійно запізнюється на уроки (колись прийшов на останні 5 хвилин!), змушує працювати у нецікавій Фігмі та вигадує дивні кличкі учням.</p>
                     </div>
+                    <button class="poem-btn" onclick="openModal('dmitroModal')">Читати його вірш 📜</button>
                 </div>
                 
-                <!-- КАРТКА ПАНА МИКИТУ З НОВИМ UWU-ВІРШЕМ -->
+                <!-- КАРТКА ПАНА МИКИТИ -->
                 <div class="teacher-card warn">
                     <div>
                         <img src="bartiuk.png" alt="Пан Микита" class="teacher-photo">
                         <h3 class="teacher-name">Пан Микита</h3>
                         <p class="teacher-subject">Викладач</p>
-                        <p class="teacher-review">Відомий серед учнів як «Пан Грю». Поводиться занадто прискіпливо, через що класна атмосфера на його уроках миттєво падає.</p>
+                        <p class="teacher-review">Відомий среди учнів як «Пан Грю». Поводиться занадто прискіпливо, через що класна атмосфера на його уроках миттєво падає.</p>
                     </div>
                     <button class="poem-btn" onclick="openModal('gryuModal')">Читати його вірш 📜</button>
                 </div>
@@ -185,7 +201,58 @@
         </div>
     </main>
 
-    <!-- МОДАЛЬНЕ ВІКНО 1: ВІРШ ПАНІ ВІКТОРІЇ -->
+    <!-- МОДАЛЬНЕ ВІКНО: UWU ВІРШ ПАНА ДМИТРА (ПАН КОМЕНТАР) -->
+    <div class="modal-overlay" id="dmitroModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span>🎨 UWU-віршик для Пана Коментарика</span>
+                <button class="close-btn" onclick="closeModal('dmitroModal')">✕</button>
+            </div>
+            <div class="modal-body">
+У серденьку дизайну, де лінієчок краса, ✨
+Де творчість вирує і думочка літа,
+Творить фрейми й піксельні він чудеса,
+Проєктики створює **Пан Коментарик** щодня. 🥺
+
+Коли в черговий раз релізик підтиска,
+І правочок летить нескінченний потік,
+Рятує команду залізна **ручечка**, 🐾
+Бо правочки вносить **Пан Коментарик** весь рік.
+
+Опоронька й спокій у кожній миті,
+Для кожного тега — надійна **ручечка**. 💞
+Найкраща людинка на всьому світі,
+Це наш дорогенький і рідний **Пан Коментар**.
+
+Він бачить відмітки на кожній платформочці,
+Він кожну детальку до ладу доведе.
+Дизайнчик тримає у правильній формочці,
+Вперед до релізику **Пан Коментарик** нас веде! 🚀
+
+Він відкриває улюблену **Figma**-Фігмочку, 💻
+Де сіточка ідеальна, і шрифтики блищать.
+Для інших дизайн — то заплутана догмочка,
+А в нього компонетики у **Figma** стоять.
+
+Він ставить відмітки на кожній платформочці,
+Щоб розробнички знали, куди їм іти.
+І баги зникають в робочому штормику,
+Коли до **Figma** зайде **Пан Коментарик** знов рости. 🥰
+
+Нехай обминають його всі тривожки,
+Хай **Figma** не висне у пікові дні.
+Рівненькими будуть життєві дорожки,
+Якими іде світлий **Пан Коментар** вдалині. ✨
+
+І вечірчик приходить, затихли містечка,
+Закрито всі тасочки, готовий макет.
+Ця пісенька душевна, проста і свята,
+Звучить для тебе, коханий **Пан Коментарик**! 💖
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНЕ ВІКНО: ВІРШ ПАНІ ВІКТОРІЇ -->
     <div class="modal-overlay" id="victoriaModal">
         <div class="modal-card">
             <div class="modal-header">
@@ -206,7 +273,7 @@
 
 Перший вдих робити боляче, тим паче, коли він не перший.
 Але боляче дивитися. «Нехай цього разу буде стервом,» —
-Тихо молишся, — «Боже, боже, нехай цього разу буде злою,
+Тихо молишся, — «Боже, boже, нехай цього разу буде злою,
 Неприступною і товстошкірою, наростить нехай кольчужний шар,
 Щоб не пробити ні лайливим словом, ні вилами, ні штиком,
 Ні зрадою підлою. Нехай смолоскипи гасить плювком.
@@ -225,7 +292,7 @@
 Перший зуб і перше слово, кілометри відшльопаних поп,
 Кілограми батогів і пряників, — панацею знову не знайти,
 Одноразова механіка — немає протоптаного шляху…
-Снову двійка, «потім перездам», математика, правопис
+Снову двійка, «потім перездам», mathematical, правопис
 200 разів «встаньте в куток, мадам» — дуже дивне покарання.
 Невпевненість і прищі, груди й список завдань на літо —
 Усе росте у мене. «Не шукай, не втрачай — ночую у Світи!»
@@ -242,9 +309,9 @@
 Ось же, знову не вберіг… ідіот, дурак!
 
 Навіть панцером не обріс… дуже рано цього разу…»
-І ти знову вірний мій Алекс Кросс, Шерлок Холмс, Ераст
+І ти знову вірний мій Алекс Кросс, Шерлок Холмс, Эраст
 (як по батькові вас? Петрович!) Допоможи. Відшукай мене.
-Сльози, волосся, краплі крові, чоботи, ступня…
+Слёзы, волосся, краплі крові, чоботи, ступня…
 Збери салат, замішай коктейль, — і як пазл мене склади.
 Воскреси мене, пані Франкенштейн…
 Мне хочеться жити!
@@ -252,7 +319,7 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНЕ ВІКНО 2: МИЛИЙ UWU-ВІРШ ПАНА МИКИТИ (ГРЮ) -->
+    <!-- МОДАЛЬНЕ ВІКНО: UWU-ВІРШ ПАНА МИКИТИ (ГРЮ) -->
     <div class="modal-overlay" id="gryuModal">
         <div class="modal-card">
             <div class="modal-header">
@@ -266,7 +333,7 @@
 Які нам дарує **Пан Грюсік** щодня. 🥺
 
 Коли на душеньці залягає туманчик,
-І сумненько стає серед сірих стіночок,
+І сумненько стає среди сірих стіночок,
 Він **ручечку** протягне крізь океанчик, 🐾
 Розвіє турботки нам **Пан Грюсік** усім.
 
